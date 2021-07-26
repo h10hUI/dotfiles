@@ -42,9 +42,9 @@
   smudge = git-lfs smudge %f
   required = true
 [pager]
-  log = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
+  log = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
+  show = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
+  diff = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
 [branch "master"]
   remote = origin
   merge = refs/heads/master
