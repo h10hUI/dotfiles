@@ -50,7 +50,7 @@ PATH=/usr/local/bin:$PATH
 
 # cargoのパスを通す
 # {{{
-  source "$HOME/.cargo/env"
+  # source "$HOME/.cargo/env"
 # }}}
 
 # phpのパスを通す
