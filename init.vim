@@ -11,13 +11,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'rking/ag.vim'
 Plug 'cespare/vim-toml'
 Plug 'cocopon/iceberg.vim'
-Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-  let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
-  let g:markdown_minlines = 100
-Plug 'noahfrederick/vim-laravel', { 'for': 'php' }
-Plug 'jwalton512/vim-blade', { 'for': 'php' }
 Plug 'tmhedberg/matchit'
 Plug 'itchyny/lightline.vim'
   let g:lightline = { 
@@ -53,17 +46,25 @@ Plug 'tomtom/tcomment_vim'
   endif
   let g:tcomment_types['blade'] = '{{-- %s --}}'
   let g:tcomment_types['eruby'] = '<%# %s %>'
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'haya14busa/vim-migemo'
-Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-  let g:elm_setup_keybindings = 0
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript','typescript.tsx']}
-Plug 'maxmellon/vim-jsx-pretty'
 Plug 'tyru/columnskip.vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+" Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
+" Plug 'posva/vim-vue', { 'for': 'vue' }
+" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+"   let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+"   let g:markdown_minlines = 100
+" Plug 'noahfrederick/vim-laravel', { 'for': 'php' }
+" Plug 'jwalton512/vim-blade', { 'for': 'php' }
+" Plug 'ElmCast/elm-vim', { 'for': 'elm' }
+  " let g:elm_setup_keybindings = 0
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript','typescript.tsx']}
+" Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 " colorsheme
 if filereadable(expand("~/.config/nvim/plugged/iceberg.vim/colors/iceberg.vim"))
@@ -562,6 +563,19 @@ autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
     autocmd WinEnter,BufRead * set cursorline
   hi clear Visual
   hi Visual ctermfg=255 ctermbg=240 guifg=#eff0f4 guibg=#5b6389
+"}}}
+
+" ----------------------------------------
+"  treesitterの設定
+" ----------------------------------------
+"{{{
+lua << EOF
+  require'nvim-treesitter.configs'.setup {
+    highlight = {
+      enable = true,
+    }
+  }
+EOF
 "}}}
 
 " Dovorak 設定
