@@ -49,8 +49,8 @@ Plug 'tomtom/tcomment_vim'
 Plug 'haya14busa/vim-migemo'
 Plug 'tyru/columnskip.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 " Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-" Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 " Plug 'posva/vim-vue', { 'for': 'vue' }
 " Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "   let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
