@@ -66,10 +66,6 @@ Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 " Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript','typescript.tsx']}
 " Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
-" colorsheme
-if filereadable(expand("~/.config/nvim/plugged/iceberg.vim/colors/iceberg.vim"))
-  colorscheme iceberg
-endif
 filetype plugin indent on
 "}}}
 
@@ -555,12 +551,14 @@ autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
 " カラースキーム決定
   set t_Co=256
   syntax enable
+  colorscheme iceberg
 " カーソルライン設定
   set cursorline
   augroup cch
     au!
     autocmd WinLeave * set nocursorline
     autocmd WinEnter,BufRead * set cursorline
+" ビジュアルモードの色変更
   hi clear Visual
   hi Visual ctermfg=255 ctermbg=240 guifg=#eff0f4 guibg=#5b6389
 "}}}
