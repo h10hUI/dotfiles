@@ -30,7 +30,7 @@ Plug 'fuenor/JpFormat.vim'
   nnoremap gL :JpFormatAll!<CR>
 Plug 'mattn/emmet-vim'
   let g:user_emmet_install_global = 0
-  autocmd FileType html,css,php,markdown,javascript EmmetInstall
+  autocmd FileType html,css,php,markdown,javascript,javascriptreact EmmetInstall
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
   let g:fzf_preview_window = ''
