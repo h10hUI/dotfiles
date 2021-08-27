@@ -11,7 +11,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'rking/ag.vim'
 Plug 'cespare/vim-toml'
 Plug 'cocopon/iceberg.vim'
-Plug 'tmhedberg/matchit'
 Plug 'itchyny/lightline.vim'
   let g:lightline = { 
   \   'colorscheme': 'wombat'
@@ -22,7 +21,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'junegunn/vim-easy-align'
   vmap <Enter> <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
-Plug 'cocopon/vaffle.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'easymotion/vim-easymotion'
@@ -91,8 +89,8 @@ filetype plugin indent on
   set history=1000
   set hlsearch
   set ignorecase
-  set incsearch
   set inccommand=split
+  set incsearch
   set laststatus=2
   set lazyredraw
   set list
@@ -100,6 +98,7 @@ filetype plugin indent on
   set matchtime=1
   set modeline
   set modifiable
+  set mouse=n
   set nrformats-=octal
   set nu
   set pumheight=10
@@ -147,9 +146,6 @@ filetype plugin indent on
     set swapfile
     set directory=~/.config/nvim/swap
     set backupskip=/tmp/*,/private/tmp/*
-  " insertモードでカーソルの形を変える
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
   " 保存時に行末の空白を除去する
     function! s:remove_dust()
       let cursor = getpos(".")
@@ -223,6 +219,7 @@ filetype plugin indent on
     \, 'coc-tabnine'
     \, 'coc-pairs'
     \, 'coc-styled-components'
+    \, 'coc-fzf-preview'
     \]
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
@@ -295,11 +292,6 @@ filetype plugin indent on
   inoremap <C-o> <Esc>o
 " cntrl + n キーで改行
   noremap <C-n> o<Esc>
-" relativenumberのトグル
-  nnoremap <Leader>nu :setlocal rnu!<CR>
-" バッファの分割
-  " noremap <silent><Leader><Leader>sp :<C-u>split<CR>
-  " noremap <silent><Leader><Leader>vs :<C-u>vsplit<CR>
 " カーソルキーでバッファのサイズ変更
   nnoremap <silent><Down>  <C-w>-
   nnoremap <silent><Up>    <C-w>+
@@ -308,16 +300,8 @@ filetype plugin indent on
 " ファイル操作
   nnoremap <Leader>, :<C-u>w<CR>
   nnoremap <Leader>Q :<C-u>q!<CR>
-" ファイルエクスプローラー系
-  nnoremap <silent><Leader><Leader>ex :<C-u>e .<CR>
-  nnoremap <silent><Leader><Leader>sex :<C-u>Sex<CR>
 " 同単語検索設定
   nnoremap * *N
-" タブ操作
-  " nnoremap <silent> <Leader>ta :<C-u>tabe<CR>
-  " nnoremap <silent> <Leader>tn gt
-  " nnoremap <silent> <Leader>tp gT
-  " nnoremap <silent> <Leader>tc :<C-u>tabc<CR>
 " 全角で書かないようにする
   inoremap （ (
   inoremap ） )
@@ -361,8 +345,6 @@ filetype plugin indent on
   nnoremap <silent>]Q :<C-u>clast<CR>
 " .vimrcの再読み込み
   nnoremap <silent><F6> :<C-u>source $MYVIMRC<CR>
-"文字コード変更して再読み込み
-  " nnoremap <silent> es :<C-u>e! ++enc=sjis<CR>
 " コマンドライン設定
   cnoremap <C-a> <Home>
   cnoremap <C-b> <Left>
@@ -380,10 +362,6 @@ filetype plugin indent on
   nnoremap <C-]> g<C-]>
 " screenコマンドとタグジャンプがバッティングするので変更
   nnoremap <silent><C-b> :<C-u>pop<CR>
-" ターミナルモードの設定(nvim限定)
-  if has('nvim')
-    tnoremap <silent><C-[> <C-\><C-n>
-  endif
 " Visualモードでインデントした時の範囲解除を避ける
   vnoremap < <gv
   vnoremap > >gv
@@ -393,15 +371,9 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  filetype settings
+"  augroup settings
 " ----------------------------------------
 "{{{
-  augroup filetypeSet
-    au!
-    au BufRead,BufNewFile,BufEnter *.ejs set filetype=html
-    au BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-    au BufLeave *.{js,jsx,ts,tsx} :syntax sync clear   
-  augroup END
   augroup filetypeIndent
     au!
     au BufNewFile,BufRead,BufEnter *.php setlocal tabstop=4 shiftwidth=4
@@ -458,10 +430,10 @@ filetype plugin indent on
   xmap gS  <Plug>VgSurround
   if !exists("g:surround_no_insert_mappings") || ! g:surround_no_insert_mappings
     if !hasmapto("<Plug>Isurround","i") && "" == mapcheck("<C-S>","i")
-      imap    <C-S> <Plug>Isurround
+      imap <C-S> <Plug>Isurround
     endif
-    imap      <C-G>s <Plug>Isurround
-    imap      <C-G>S <Plug>ISurround
+    imap <C-G>s <Plug>Isurround
+    imap <C-G>S <Plug>ISurround
   endif
 "}}}
 
@@ -495,28 +467,6 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  js関連の設定
-" ----------------------------------------
-"{{{
-function! EnableJavascript()
-  " Setup used libraries
-  let g:used_javascript_libs = 'jquery,underscore,react,flux,jasmine,d3'
-  let b:javascript_lib_use_jquery = 1
-  let b:javascript_lib_use_underscore = 1
-  let b:javascript_lib_use_react = 1
-  let b:javascript_lib_use_flux = 1
-  let b:javascript_lib_use_jasmine = 1
-  let b:javascript_lib_use_d3 = 1
-endfunction
-
-augroup MyVimrc
-  au!
-augroup END
-
-autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
-"}}}
-
-" ----------------------------------------
 "  set commands
 " ----------------------------------------
 "{{{
@@ -533,10 +483,6 @@ autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
   endfunction
   command! -nargs=0 Grep :call CocGrep()
   nnoremap <ESC><ESC>g <C-u>:Grep<CR>
-" terminalを分割して開く
-  if (has('nvim'))
-    command! -nargs=* Term split | terminal <args>
-  endif
 " git blameコマンド実行
   function Gblame()
     Git blame
@@ -558,6 +504,7 @@ autocmd MyVimrc FileType javascript,javascript.jsx call EnableJavascript()
     au!
     autocmd WinLeave * set nocursorline
     autocmd WinEnter,BufRead * set cursorline
+  augroup END
 " ビジュアルモードの色変更
   hi clear Visual
   hi Visual ctermfg=255 ctermbg=240 guifg=#eff0f4 guibg=#5b6389
@@ -588,12 +535,12 @@ EOF
   nnoremap k b
   nnoremap l <Nop>
 
-  au Filetype * nnoremap <silent><nowait>d h
-  au Filetype * nnoremap <silent><nowait>gh j
-  au Filetype * nnoremap <silent><nowait>h gj
-  au Filetype * nnoremap <silent><nowait>gt k
-  au Filetype * nnoremap <silent><nowait>t gk
-  au Filetype * nnoremap <silent><nowait>n l
+  nnoremap <silent><nowait>d h
+  nnoremap <silent><nowait>gh j
+  nnoremap <silent><nowait>h gj
+  nnoremap <silent><nowait>gt k
+  nnoremap <silent><nowait>t gk
+  nnoremap <silent><nowait>n l
 
   vnoremap H J
   vnoremap J E
@@ -603,12 +550,12 @@ EOF
   vnoremap k b
   vnoremap l <Nop>
 
-  au Filetype * vnoremap <silent><nowait>d h
-  au Filetype * vnoremap <silent><nowait>gh j
-  au Filetype * vnoremap <silent><nowait>h gj
-  au Filetype * vnoremap <silent><nowait>gt k
-  au Filetype * vnoremap <silent><nowait>t gk
-  au Filetype * vnoremap <silent><nowait>n l
+  vnoremap <silent><nowait>d h
+  vnoremap <silent><nowait>gh j
+  vnoremap <silent><nowait>h gj
+  vnoremap <silent><nowait>gt k
+  vnoremap <silent><nowait>t gk
+  vnoremap <silent><nowait>n l
 
   nnoremap r n
   nnoremap R N
