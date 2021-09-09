@@ -10,7 +10,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'rking/ag.vim'
 Plug 'cespare/vim-toml'
-Plug 'cocopon/iceberg.vim'
+" Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
   let g:lightline = { 
   \   'colorscheme': 'wombat'
@@ -46,6 +46,7 @@ Plug 'tomtom/tcomment_vim'
   let g:tcomment_types['eruby'] = '<%# %s %>'
 Plug 'haya14busa/vim-migemo'
 Plug 'tyru/columnskip.vim'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 " Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -98,7 +99,7 @@ filetype plugin indent on
   set matchtime=1
   set modeline
   set modifiable
-  set mouse=n
+  set mouse=
   set nrformats-=octal
   set nu
   set pumheight=10
@@ -138,8 +139,6 @@ filetype plugin indent on
     endif
   " netrwは常にtree view
     let g:netrw_liststyle=3
-  " 改行時の設定
-    autocmd FileType * setlocal formatoptions-=ro
   " backupファイルとスワップファイルの設定
     set backup
     set backupdir=~/.config/nvim/backup
@@ -231,7 +230,7 @@ filetype plugin indent on
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
   " Use K for show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> Q :call <SID>show_documentation()<CR>
   " Hover表示
   nnoremap <silent> gf :<C-u>call CocAction('doHover')<CR>
   function! s:show_documentation()
@@ -245,6 +244,29 @@ filetype plugin indent on
   inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "}}}
 
+" ----------------------------------------
+"  window
+" ----------------------------------------
+"{{{
+  if has('nvim')
+    function! s:focus_floating() abort
+      if !empty(nvim_win_get_config(win_getid()).relative)
+        wincmd p
+        return
+      endif
+      for winnr in range(1, winnr('$'))
+        let winid = win_getid(winnr)
+        let conf = nvim_win_get_config(winid)
+        if conf.focusable && !empty(conf.relative)
+          call win_gotoid(winid)
+          return
+        endif
+      endfor
+      execute "normal! \<C-w>\<C-w>"
+    endfunction
+    nnoremap <silent> <C-w><C-w> :<C-u>call <SID>focus_floating()<CR>
+  endif
+"}}}
 " ----------------------------------------
 "  キーマッピング設定
 " ----------------------------------------
@@ -271,12 +293,6 @@ filetype plugin indent on
   inoremap <C-e> <End>
   inoremap <C-f> <Right>
   inoremap <C-b> <Left>
-" テキストオブジェクト操作
-  " onoremap id i"
-  " onoremap is i'
-  " onoremap ia i>
-  " onoremap ir i]
-  " onoremap ib i)
 " 移動を表示行単位に
   noremap j gj
   noremap k gk
@@ -368,6 +384,11 @@ filetype plugin indent on
 " cwin操作
   nnoremap <silent><Leader>op :<C-u>copen<CR>
   nnoremap <silent><Leader>cl :<C-u>cclose<CR>
+" タブ操作
+  nnoremap <silent><Leader>tn gt
+  nnoremap <silent><Leader>tN gT
+" ペーストした部分を選択する
+  nnoremap gp `[v`]
 "}}}
 
 " ----------------------------------------
@@ -441,6 +462,7 @@ filetype plugin indent on
 "  fzfの設定
 " ----------------------------------------
 "{{{
+  set rtp+=/opt/homebrew/opt/fzf
   nnoremap <silent>: <C-u>:Buffers<CR>'
   nnoremap <silent>q: <C-u>:History:<CR>'
   nnoremap <silent><Leader>? <C-u>:GFiles?<CR>'
@@ -496,8 +518,9 @@ filetype plugin indent on
 "{{{
 " カラースキーム決定
   set t_Co=256
-  syntax enable
-  colorscheme iceberg
+  syntax on
+  let g:nvcode_termcolors=256
+  colorscheme nvcode
 " カーソルライン設定
   set cursorline
   augroup cch
@@ -506,8 +529,12 @@ filetype plugin indent on
     autocmd WinEnter,BufRead * set cursorline
   augroup END
 " ビジュアルモードの色変更
-  hi clear Visual
-  hi Visual ctermfg=255 ctermbg=240 guifg=#eff0f4 guibg=#5b6389
+  " hi clear Visual
+  " hi Visual ctermfg=255 ctermbg=240 guifg=#eff0f4 guibg=#5b6389
+  if (has("termguicolors"))
+    set termguicolors
+    hi LineNr ctermbg=NONE guibg=NONE
+  endif
 "}}}
 
 " ----------------------------------------
@@ -516,7 +543,11 @@ filetype plugin indent on
 "{{{
 lua << EOF
   require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained",
     highlight = {
+      enable = true,
+    },
+    indent = {
       enable = true,
     }
   }
