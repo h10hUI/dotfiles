@@ -49,21 +49,6 @@ Plug 'tyru/columnskip.vim'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
-" Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-" Plug 'posva/vim-vue', { 'for': 'vue' }
-" Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-"   let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
-"   let g:markdown_minlines = 100
-" Plug 'noahfrederick/vim-laravel', { 'for': 'php' }
-" Plug 'jwalton512/vim-blade', { 'for': 'php' }
-" Plug 'ElmCast/elm-vim', { 'for': 'elm' }
-  " let g:elm_setup_keybindings = 0
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'othree/yajs.vim', { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'othree/es.next.syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
-" Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript','typescript.tsx']}
-" Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -165,7 +150,7 @@ filetype plugin indent on
       augroup END
       call ZenkakuSpace()
     endif
-  "virtualモードの時にスターで選択位置のコードを検索するようにする
+  "visual モードの時にスターで選択位置のコードを検索するようにする
     xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
     xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
     function! s:VSetSearch()
@@ -181,8 +166,6 @@ filetype plugin indent on
       set undodir=~/.config/nvim/undo
       set undofile
     endif
-  " ファイルを閉じた時の位置から再編集
-    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
   " vimdiffの設定
     function! s:vimdiff_in_newtab(...)
       if a:0 == 1
@@ -267,12 +250,11 @@ filetype plugin indent on
     nnoremap <silent> <C-w><C-w> :<C-u>call <SID>focus_floating()<CR>
   endif
 "}}}
+
 " ----------------------------------------
 "  キーマッピング設定
 " ----------------------------------------
 "{{{
-" Yを行末までのヤンクにする
-  nnoremap Y y$
 " スペースキー + . で.vimrcを開く
   nnoremap <Leader>. :<C-u>tabedit ~/.config/nvim/init.vim<CR>
 " 検索語が画面の真ん中に来るようにする
@@ -282,10 +264,6 @@ filetype plugin indent on
   nmap # #zz
   nmap g* g*zz
   nmap g# g#zz
-" 行の真ん中に移動
-  nnoremap <Leader><silent>c :call cursor(0,strlen(getline("."))/2)<CR>
-" 行の最後尾に移動
-  nnoremap <Leader>e $
 " insertモードから抜ける
   inoremap <silent><C-j> <ESC>
 " カーソル操作
@@ -372,8 +350,6 @@ filetype plugin indent on
   cnoremap <C-p> <Up>
 " control lの設定
   nnoremap <Leader>l :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
-" very nomagicの設定
-  nnoremap / /\V
 " ctagsのタグジャンプ
   nnoremap <C-]> g<C-]>
 " screenコマンドとタグジャンプがバッティングするので変更
@@ -395,13 +371,6 @@ filetype plugin indent on
 "  augroup settings
 " ----------------------------------------
 "{{{
-  augroup filetypeIndent
-    au!
-    au BufNewFile,BufRead,BufEnter *.php setlocal tabstop=4 shiftwidth=4
-    au BufNewFile,BufRead,BufEnter *.go setlocal tabstop=4 shiftwidth=4 noexpandtab
-    au BufNewFile,BufRead,BufEnter *.{js,jsx,ts,tsx} setlocal tabstop=2 shiftwidth=2
-    au BufNewFile,BufRead,BufEnter *.blade.php setlocal tabstop=4 shiftwidth=4
-  augroup END
   augroup diffWrap
     au!
     au FilterWritePre * if &diff | setlocal wrap | endif
@@ -431,8 +400,6 @@ filetype plugin indent on
   nmap g\ <Plug>(easymotion-sn)
   xmap g\ <Plug>(easymotion-sn)
   omap g\ <Plug>(easymotion-tn)
-  " nmap ww <Plug>(easymotion-w)
-  " nmap WW <Plug>(easymotion-bd-w)
 "}}}
 
 " ----------------------------------------
@@ -528,9 +495,6 @@ filetype plugin indent on
     autocmd WinLeave * set nocursorline
     autocmd WinEnter,BufRead * set cursorline
   augroup END
-" ビジュアルモードの色変更
-  " hi clear Visual
-  " hi Visual ctermfg=255 ctermbg=240 guifg=#eff0f4 guibg=#5b6389
   if (has("termguicolors"))
     set termguicolors
     hi LineNr ctermbg=NONE guibg=NONE
