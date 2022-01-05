@@ -154,8 +154,8 @@ filetype plugin indent on
       call ZenkakuSpace()
     endif
   "visual モードの時にスターで選択位置のコードを検索するようにする
-    xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
-    xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+    xnoremap * :call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+    xnoremap # :call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
     function! s:VSetSearch()
       let temp = @s
       norm! gv"sy
@@ -218,7 +218,7 @@ filetype plugin indent on
   " Use K for show documentation in preview window
   nnoremap <silent> Q :call <SID>show_documentation()<CR>
   " Hover表示
-  nnoremap <silent> gf :<C-u>call CocAction('doHover')<CR>
+  nnoremap <silent> gf :call CocAction('doHover')<CR>
   function! s:show_documentation()
     if &filetype == 'vim'
       execute 'h '.expand('<cword>')
@@ -250,7 +250,7 @@ filetype plugin indent on
       endfor
       execute "normal! \<C-w>\<C-w>"
     endfunction
-    nnoremap <silent> <C-w><C-w> :<C-u>call <SID>focus_floating()<CR>
+    nnoremap <silent> <C-w><C-w> :call <SID>focus_floating()<CR>
   endif
 "}}}
 
@@ -259,7 +259,7 @@ filetype plugin indent on
 " ----------------------------------------
 "{{{
 " スペースキー + . で.vimrcを開く
-  nnoremap <Leader>. :<C-u>tabedit ~/.config/nvim/init.vim<CR>
+  nnoremap <Leader>. :tabedit ~/.config/nvim/init.vim<CR>
 " 検索語が画面の真ん中に来るようにする
   nmap n nzz
   nmap N Nzz
@@ -280,8 +280,8 @@ filetype plugin indent on
   noremap gj j
   noremap gk k
 " 現在行を入れ替える
-  nnoremap [.  :<C-u>execute 'move -1-'. v:count1<CR>
-  nnoremap ].  :<C-u>execute 'move +'. v:count1<CR>
+  nnoremap [.  :execute 'move -1-'. v:count1<CR>
+  nnoremap ].  :execute 'move +'. v:count1<CR>
 " 半ページ移動(中央維持
   " noremap H <C-u>zz
   " noremap L <C-d>zz
@@ -295,8 +295,8 @@ filetype plugin indent on
   nnoremap <silent><Left>  <C-w><
   nnoremap <silent><Right> <C-w>>
 " ファイル操作
-  nnoremap <Leader>, :<C-u>w<CR>
-  nnoremap <Leader>Q :<C-u>q!<CR>
+  nnoremap <Leader>, :w<CR>
+  nnoremap <Leader>Q :q!<CR>
 " 同単語検索設定
   nnoremap * *N
 " 全角で書かないようにする
@@ -338,10 +338,10 @@ filetype plugin indent on
 " vimgrep時の候補移動
   nnoremap <silent>[q :cprevious<CR>
   nnoremap <silent>]q :cnext<CR>
-  nnoremap <silent>[Q :<C-u>cfirst<CR>
-  nnoremap <silent>]Q :<C-u>clast<CR>
+  nnoremap <silent>[Q :cfirst<CR>
+  nnoremap <silent>]Q :clast<CR>
 " .vimrcの再読み込み
-  nnoremap <silent><F6> :<C-u>source $MYVIMRC<CR>
+  nnoremap <silent><F6> :source $MYVIMRC<CR>
 " コマンドライン設定
   cnoremap <C-a> <Home>
   cnoremap <C-b> <Left>
@@ -356,13 +356,13 @@ filetype plugin indent on
 " ctagsのタグジャンプ
   nnoremap <C-]> g<C-]>
 " screenコマンドとタグジャンプがバッティングするので変更
-  nnoremap <silent><C-b> :<C-u>pop<CR>
+  nnoremap <silent><C-b> :pop<CR>
 " Visualモードでインデントした時の範囲解除を避ける
   vnoremap < <gv
   vnoremap > >gv
 " cwin操作
-  nnoremap <silent><Leader>op :<C-u>copen<CR>
-  nnoremap <silent><Leader>cl :<C-u>cclose<CR>
+  nnoremap <silent><Leader>op :copen<CR>
+  nnoremap <silent><Leader>cl :cclose<CR>
 " タブ操作
   nnoremap <silent><Leader>tn gt
   nnoremap <silent><Leader>tN gT
@@ -408,7 +408,12 @@ filetype plugin indent on
 " ----------------------------------------
 "  fuzzy-moitonの設定
 " ----------------------------------------
-  nnoremap ss <C-u>:FuzzyMotion<CR>
+"{{{
+  nnoremap ss :FuzzyMotion<CR>
+  let g:fuzzy_motion_labels = [
+        \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z' 
+        \ ]
+"}}}
 
 " ----------------------------------------
 "  vim-surroundの設定
@@ -438,17 +443,17 @@ filetype plugin indent on
 " ----------------------------------------
 "{{{
   set rtp+=/opt/homebrew/opt/fzf
-  nnoremap <silent>: <C-u>:Buffers<CR>'
-  nnoremap <silent>q: <C-u>:History:<CR>'
-  nnoremap <silent><Leader>? <C-u>:GFiles?<CR>'
-  nnoremap <silent><Leader>u <C-u>:GFiles<CR>'
-  nnoremap <silent><Leader>d <C-u>:History<CR>'
+  nnoremap <silent>: :Buffers<CR>'
+  nnoremap <silent>q: :History:<CR>'
+  nnoremap <silent><Leader>? :GFiles?<CR>'
+  nnoremap <silent><Leader>u :GFiles<CR>'
+  nnoremap <silent><Leader>d :History<CR>'
   " Insert mode completion
   imap <c-x><c-k> <plug>(fzf-complete-word)
   imap <c-x><c-f> <plug>(fzf-complete-path)
   imap <c-x><c-j> <plug>(fzf-complete-file-ag)
   imap <c-x><c-l> <plug>(fzf-complete-line) 
-  nnoremap <silent>r <C-u>:Tags<CR>
+  nnoremap <silent>r :Tags<CR>
 "}}}
 
 " ----------------------------------------
@@ -479,7 +484,7 @@ filetype plugin indent on
     CocList grep
   endfunction
   command! -nargs=0 Grep :call CocGrep()
-  nnoremap <ESC><ESC>g <C-u>:Grep<CR>
+  nnoremap <ESC><ESC>g :Grep<CR>
 " git blameコマンド実行
   function Gblame()
     Git blame
