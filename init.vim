@@ -23,12 +23,15 @@ Plug 'junegunn/vim-easy-align'
   nmap ga <Plug>(EasyAlign)
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'easymotion/vim-easymotion'
+Plug 'vim-denops/denops.vim'
+Plug 'vim-denops/denops-helloworld.vim'
+Plug 'yuki-yano/fuzzy-motion.vim'
+" Plug 'easymotion/vim-easymotion'
 Plug 'fuenor/JpFormat.vim'
   nnoremap gL :JpFormatAll!<CR>
 Plug 'mattn/emmet-vim'
   let g:user_emmet_install_global = 0
-  autocmd FileType html,css,php,markdown,javascript,javascriptreact EmmetInstall
+  autocmd FileType html,css,php,markdown,javascript,javascriptreact,eruby EmmetInstall
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
   let g:fzf_preview_window = ''
@@ -381,26 +384,31 @@ filetype plugin indent on
 "  vim easymotionの設定
 " ----------------------------------------
 "{{{
-  map f <Plug>(easymotion-bd-fl)
-  nmap s <Plug>(easymotion-s2)
-  omap z <Plug>(easymotion-s2)
-  vmap f <Plug>(easymotion-bd-f2)
-  nmap <Leader>h <Plug>(easymotion-j)
-  nmap <Leader>t <Plug>(easymotion-k)
-  vmap <Leader>h <Plug>(easymotion-j)
-  vmap <Leader>t <Plug>(easymotion-k)
-  let g:EasyMotion_do_mapping = 0
-  let g:EasyMotion_smartcase = 1
-  let g:EasyMotion_startofline = 0
-  let g:EasyMotion_keys = 'AOEUIDHTNS-,.PYFGCRL;QJKXBMWVZ'
-  let g:EasyMotion_use_upper = 1
-  let g:EasyMotion_enter_jump_first = 1
-  let g:EasyMotion_space_jump_first = 1
-  let g:EasyMotion_use_migemo = 1
-  nmap g\ <Plug>(easymotion-sn)
-  xmap g\ <Plug>(easymotion-sn)
-  omap g\ <Plug>(easymotion-tn)
+  " map f <Plug>(easymotion-bd-fl)
+  " nmap s <Plug>(easymotion-s2)
+  " omap z <Plug>(easymotion-s2)
+  " vmap f <Plug>(easymotion-bd-f2)
+  " nmap <Leader>h <Plug>(easymotion-j)
+  " nmap <Leader>t <Plug>(easymotion-k)
+  " vmap <Leader>h <Plug>(easymotion-j)
+  " vmap <Leader>t <Plug>(easymotion-k)
+  " let g:EasyMotion_do_mapping = 0
+  " let g:EasyMotion_smartcase = 1
+  " let g:EasyMotion_startofline = 0
+  " let g:EasyMotion_keys = 'AOEUIDHTNS-,.PYFGCRL;QJKXBMWVZ'
+  " let g:EasyMotion_use_upper = 1
+  " let g:EasyMotion_enter_jump_first = 1
+  " let g:EasyMotion_space_jump_first = 1
+  " let g:EasyMotion_use_migemo = 1
+  " nmap g\ <Plug>(easymotion-sn)
+  " xmap g\ <Plug>(easymotion-sn)
+  " omap g\ <Plug>(easymotion-tn)
 "}}}
+
+" ----------------------------------------
+"  fuzzy-moitonの設定
+" ----------------------------------------
+  nnoremap ss <C-u>:FuzzyMotion<CR>
 
 " ----------------------------------------
 "  vim-surroundの設定
