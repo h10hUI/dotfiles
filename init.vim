@@ -10,7 +10,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'rking/ag.vim'
 Plug 'cespare/vim-toml'
-" Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
   let g:lightline = { 
   \   'colorscheme': 'wombat'
@@ -26,7 +25,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-denops/denops-helloworld.vim'
 Plug 'yuki-yano/fuzzy-motion.vim'
-" Plug 'easymotion/vim-easymotion'
+Plug 'hrsh7th/vim-searchx'
 Plug 'fuenor/JpFormat.vim'
   nnoremap gL :JpFormatAll!<CR>
 Plug 'mattn/emmet-vim'
@@ -352,7 +351,7 @@ filetype plugin indent on
   cnoremap <C-n> <Down>
   cnoremap <C-p> <Up>
 " control lの設定
-  nnoremap <Leader>l :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
+  " nnoremap <Leader>l :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
 " ctagsのタグジャンプ
   nnoremap <C-]> g<C-]>
 " screenコマンドとタグジャンプがバッティングするので変更
@@ -381,31 +380,6 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  vim easymotionの設定
-" ----------------------------------------
-"{{{
-  " map f <Plug>(easymotion-bd-fl)
-  " nmap s <Plug>(easymotion-s2)
-  " omap z <Plug>(easymotion-s2)
-  " vmap f <Plug>(easymotion-bd-f2)
-  " nmap <Leader>h <Plug>(easymotion-j)
-  " nmap <Leader>t <Plug>(easymotion-k)
-  " vmap <Leader>h <Plug>(easymotion-j)
-  " vmap <Leader>t <Plug>(easymotion-k)
-  " let g:EasyMotion_do_mapping = 0
-  " let g:EasyMotion_smartcase = 1
-  " let g:EasyMotion_startofline = 0
-  " let g:EasyMotion_keys = 'AOEUIDHTNS-,.PYFGCRL;QJKXBMWVZ'
-  " let g:EasyMotion_use_upper = 1
-  " let g:EasyMotion_enter_jump_first = 1
-  " let g:EasyMotion_space_jump_first = 1
-  " let g:EasyMotion_use_migemo = 1
-  " nmap g\ <Plug>(easymotion-sn)
-  " xmap g\ <Plug>(easymotion-sn)
-  " omap g\ <Plug>(easymotion-tn)
-"}}}
-
-" ----------------------------------------
 "  fuzzy-moitonの設定
 " ----------------------------------------
 "{{{
@@ -413,6 +387,55 @@ filetype plugin indent on
   let g:fuzzy_motion_labels = [
         \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z' 
         \ ]
+"}}}
+
+" ----------------------------------------
+"  searchxの設定
+" ----------------------------------------
+"{{{
+  " Overwrite / and ?.
+  nnoremap ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  nnoremap / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  xnoremap ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  xnoremap / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  " cnoremap \ <Cmd>call searchx#select()<CR>
+
+  " Move to next/prev match.
+  nnoremap R <Cmd>call searchx#prev_dir()<CR>
+  nnoremap r <Cmd>call searchx#next_dir()<CR>
+  xnoremap R <Cmd>call searchx#prev_dir()<CR>
+  xnoremap r <Cmd>call searchx#next_dir()<CR>
+  nnoremap <C-k> <Cmd>call searchx#prev()<CR>
+  nnoremap <C-j> <Cmd>call searchx#next()<CR>
+  xnoremap <C-k> <Cmd>call searchx#prev()<CR>
+  xnoremap <C-j> <Cmd>call searchx#next()<CR>
+  cnoremap <C-k> <Cmd>call searchx#prev()<CR>
+  cnoremap <C-j> <Cmd>call searchx#next()<CR>
+
+  " Clear highlights
+  nnoremap <C-l> <Cmd>call searchx#clear()<CR>
+
+  let g:searchx = {}
+
+  " Auto jump if the recent input matches to any marker.
+  let g:searchx.auto_accept = v:true
+
+  " The scrolloff value for moving to next/prev.
+  let g:searchx.scrolloff = &scrolloff
+
+  " To enable scrolling animation.
+  let g:searchx.scrolltime = 300
+
+  " Marker characters.
+  let g:searchx.markers = split('ABCDEFGHIJKLMNOPQRSTUVWXYZ', '.\zs')
+
+  " Convert search pattern.
+  function g:searchx.convert(input) abort
+    if a:input !~# '\k'
+      return '\V' .. a:input
+    endif
+    return join(split(a:input, ' '), '.\{-}')
+  endfunction
 "}}}
 
 " ----------------------------------------
