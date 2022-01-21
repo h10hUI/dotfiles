@@ -15,8 +15,9 @@
 [merge]
   ff = false
   conflictsstyle = diff3
-[mergetool]
   tool = vimdiff
+[mergetool "vimdiff"]
+  path = nvim
 [deff]
   renames = true
 [branch]
@@ -53,12 +54,8 @@
   remote = origin
   merge = refs/heads/develop
   rebase = true
-[mergetool]
-  path = nvim
 [rebase]
   autosquash = true
-[rerere]
-  enabled = false
 [ghq]
   root = ~/workspace
 [ghq "CODECOMMIT-URL"]
