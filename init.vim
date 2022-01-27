@@ -565,6 +565,8 @@ EOF
   nnoremap j e
   nnoremap k b
   nnoremap l <Nop>
+  nnoremap z; zr
+  nnoremap z+ zR
 
   nnoremap <silent><nowait>d h
   nnoremap <silent><nowait>gh j
