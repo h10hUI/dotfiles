@@ -21,16 +21,13 @@ Plug 'junegunn/vim-easy-align'
   vmap <Enter> <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
 Plug 'vim-denops/denops.vim'
-Plug 'vim-denops/denops-helloworld.vim'
 Plug 'yuki-yano/fuzzy-motion.vim'
-Plug 'hrsh7th/vim-searchx'
 Plug 'fuenor/JpFormat.vim'
   nnoremap gL :JpFormatAll!<CR>
 Plug 'mattn/emmet-vim'
   let g:user_emmet_install_global = 0
-  autocmd FileType html,css,php,markdown,javascript,javascriptreact,eruby EmmetInstall
+  autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby EmmetInstall
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
   let g:fzf_preview_window = ''
@@ -46,11 +43,11 @@ Plug 'tomtom/tcomment_vim'
   endif
   let g:tcomment_types['blade'] = '{{-- %s --}}'
   let g:tcomment_types['eruby'] = '<%# %s %>'
-Plug 'haya14busa/vim-migemo'
 Plug 'tyru/columnskip.vim'
 Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
+Plug 'skanehira/jumpcursor.vim'
+  nmap [j <Plug>(jumpcursor-jump)
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -281,9 +278,6 @@ filetype plugin indent on
 " 現在行を入れ替える
   nnoremap [.  :execute 'move -1-'. v:count1<CR>
   nnoremap ].  :execute 'move +'. v:count1<CR>
-" 半ページ移動(中央維持
-  " noremap H <C-u>zz
-  " noremap L <C-d>zz
 " insertモードで次の行に直接改行
   inoremap <C-o> <Esc>o
 " cntrl + n キーで改行
@@ -295,37 +289,8 @@ filetype plugin indent on
   nnoremap <silent><Right> <C-w>>
 " ファイル操作
   nnoremap <Leader>, :w<CR>
-  nnoremap <Leader>Q :q!<CR>
 " 同単語検索設定
   nnoremap * *N
-" 全角で書かないようにする
-  inoremap （ (
-  inoremap ） )
-  inoremap ｛ {
-  inoremap ｝ }
-  inoremap ； ;
-  inoremap ： :
-  inoremap ｜ \|
-  inoremap ＜ <
-  inoremap ＞ >
-  inoremap ＊ *
-  inoremap ＠ @
-  inoremap － -
-  inoremap ％ %
-  inoremap ＃ #
-  inoremap ” "
-  inoremap ’ '
-  inoremap ＋ +
-  inoremap ０ 0
-  inoremap １ 1
-  inoremap ２ 2
-  inoremap ３ 3
-  inoremap ４ 4
-  inoremap ５ 5
-  inoremap ６ 6
-  inoremap ７ 7
-  inoremap ８ 8
-  inoremap ９ 9
 " キー入れ替え
   noremap ; :
   noremap : ;
@@ -351,7 +316,7 @@ filetype plugin indent on
   cnoremap <C-n> <Down>
   cnoremap <C-p> <Up>
 " control lの設定
-  " nnoremap <Leader>l :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
+  nnoremap <C-l> :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
 " ctagsのタグジャンプ
   nnoremap <C-]> g<C-]>
 " screenコマンドとタグジャンプがバッティングするので変更
@@ -387,55 +352,6 @@ filetype plugin indent on
   let g:fuzzy_motion_labels = [
         \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z' 
         \ ]
-"}}}
-
-" ----------------------------------------
-"  searchxの設定
-" ----------------------------------------
-"{{{
-  " Overwrite / and ?.
-  nnoremap ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
-  nnoremap / <Cmd>call searchx#start({ 'dir': 1 })<CR>
-  xnoremap ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
-  xnoremap / <Cmd>call searchx#start({ 'dir': 1 })<CR>
-  " cnoremap \ <Cmd>call searchx#select()<CR>
-
-  " Move to next/prev match.
-  nnoremap R <Cmd>call searchx#prev_dir()<CR>
-  nnoremap r <Cmd>call searchx#next_dir()<CR>
-  xnoremap R <Cmd>call searchx#prev_dir()<CR>
-  xnoremap r <Cmd>call searchx#next_dir()<CR>
-  nnoremap <C-k> <Cmd>call searchx#prev()<CR>
-  nnoremap <C-j> <Cmd>call searchx#next()<CR>
-  xnoremap <C-k> <Cmd>call searchx#prev()<CR>
-  xnoremap <C-j> <Cmd>call searchx#next()<CR>
-  cnoremap <C-k> <Cmd>call searchx#prev()<CR>
-  cnoremap <C-j> <Cmd>call searchx#next()<CR>
-
-  " Clear highlights
-  nnoremap <C-l> <Cmd>call searchx#clear()<CR>
-
-  let g:searchx = {}
-
-  " Auto jump if the recent input matches to any marker.
-  let g:searchx.auto_accept = v:true
-
-  " The scrolloff value for moving to next/prev.
-  let g:searchx.scrolloff = &scrolloff
-
-  " To enable scrolling animation.
-  let g:searchx.scrolltime = 300
-
-  " Marker characters.
-  let g:searchx.markers = split('ABCDEFGHIJKLMNOPQRSTUVWXYZ', '.\zs')
-
-  " Convert search pattern.
-  function g:searchx.convert(input) abort
-    if a:input !~# '\k'
-      return '\V' .. a:input
-    endif
-    return join(split(a:input, ' '), '.\{-}')
-  endfunction
 "}}}
 
 " ----------------------------------------
