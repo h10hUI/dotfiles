@@ -21,6 +21,9 @@ Plug 'junegunn/vim-easy-align'
   vmap <Enter> <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
 Plug 'airblade/vim-gitgutter'
+Plug 'lambdalisue/gina.vim'
+  nmap ldo <Plug>(gina-diffget-l)
+  nmap rdo <Plug>(gina-diffget-r)
 Plug 'vim-denops/denops.vim'
 Plug 'yuki-yano/fuzzy-motion.vim'
 Plug 'fuenor/JpFormat.vim'
@@ -424,11 +427,6 @@ filetype plugin indent on
   endfunction
   command! -nargs=0 Grep :call CocGrep()
   nnoremap <ESC><ESC>g :Grep<CR>
-" git blameコマンド実行
-  function Gblame()
-    Git blame
-  endfunction
-  command! Gblame :call Gblame()
 "}}}
 
 " ----------------------------------------
