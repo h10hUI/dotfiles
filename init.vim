@@ -430,6 +430,19 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
+"  local setting
+" ----------------------------------------
+"{{{
+  let s:dir = getcwd()
+  let s:ans = findfile(".vimrc.local", fnameescape(s:dir).";")
+
+  if len(s:ans) > 1
+    let s:rc = fnamemodify(s:ans, ":p:h")."/.vimrc.local"
+    call feedkeys(";source".s:rc."\<cr>")
+  endif
+"}}}
+
+" ----------------------------------------
 "  色設定
 " ----------------------------------------
 "{{{
