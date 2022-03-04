@@ -36,6 +36,7 @@
   checkout-merge = !git checkout --conflict=merge
   ft-imp = !read -e BNAME && git branch --show-current | sed -e "s:$:--$BNAME:g" | xargs git checkout -b
   add-i = !git status --short --branch | awk '{print $2}' | tail -n +2 | xargs -p -I % git add %
+  com = !git checkout master && sleep 2 && git checkout . && git pull
 [pull]
   ff = only
 [filter "lfs"]
