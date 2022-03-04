@@ -11,7 +11,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'rking/ag.vim'
 Plug 'cespare/vim-toml'
 Plug 'itchyny/lightline.vim'
-  let g:lightline = { 
+  let g:lightline = {
   \   'colorscheme': 'wombat'
   \}
 Plug 'vim-scripts/surround.vim'
@@ -139,16 +139,16 @@ filetype plugin indent on
       call setpos(".", cursor)
       unlet cursor
     endfunction
-    autocmd BufWritePre *.html,*.css,*.scss,*.sass,*.less,*.php,*.rb,*.js,*.haml,*.erb,*.txt,*.ejs,*.jade,*.pug,*.ts call <SID>remove_dust()
+    autocmd BufWritePre * if &filetype !=# 'markdown' | call <SID>remove_dust() | endif
   " 全角スペースの設定
     function! ZenkakuSpace()
         highlight ZenkakuSpace cterm=reverse ctermfg=darkgray gui=reverse guifg=darkgray
     endfunction
     if has('syntax')
       augroup ZenkakuSpace
-          au!
-          autocmd ColorScheme       * call ZenkakuSpace()
-          autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+        au!
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
       augroup END
       call ZenkakuSpace()
     endif
@@ -353,7 +353,7 @@ filetype plugin indent on
 "{{{
   nnoremap ss :FuzzyMotion<CR>
   let g:fuzzy_motion_labels = [
-        \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z' 
+        \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'
         \ ]
 "}}}
 
@@ -394,7 +394,7 @@ filetype plugin indent on
   imap <c-x><c-k> <plug>(fzf-complete-word)
   imap <c-x><c-f> <plug>(fzf-complete-path)
   imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  imap <c-x><c-l> <plug>(fzf-complete-line) 
+  imap <c-x><c-l> <plug>(fzf-complete-line)
   nnoremap <silent>r :Tags<CR>
 "}}}
 
