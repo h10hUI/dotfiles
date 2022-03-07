@@ -279,35 +279,6 @@ fnv() {
 }
 # }}}
 
-### multi_clipboard設定 ###
-# {{{
-# export SCREENEXCHANGE=$HOME/.screen-exchange
-# export SCREEN_MSGMINWAIT=1
-# export CLIPBOARD=$HOME/.clipboard
-# export CLMAXHIST=20
-# export CLSEP=$'\x07'
-# export CLX=""
-# if [[ "$OSTYPE" =~ "linux" ]];then
-#   if which -s xsel;then
-#     export CLXOS="xsel"
-#   elif which -s xsel;then
-#     export CLXOS="xclip"
-#   fi
-# elif [[ "$OSTYPE" =~ "cygwin" ]];then
-#   if which -s putclip;then
-#     export CLXOS="putclip"
-#   elif which -s xsel;then
-#     export CLXOS="xsel"
-#   elif which -s xsel;then
-#     export CLXOS="xclip"
-#   fi
-# elif [[ "$OSTYPE" =~ "darwin" ]];then
-#   if which -s pbcopy;then
-#     export CLXOS="pbcopy"
-#   fi
-# fi
-# }}}
-
 ### その他設定 ###
 # {{{
 # fpathの設定
@@ -362,14 +333,18 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 # LS_COLORSを設定しておく
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-# zprofを開く
-# if (which zprof > /dev/null 2>&1) ;then
-#  zprof | less
-# fi
 # zcompileを実行する
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
 fi
+# anyenvのパスを通す
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init - zsh)"
+# rbenvの設定用
+  if [ -d ${HOME}/.rbenv  ] ; then
+    export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+    eval "$(rbenv init - zsh)"
+  fi
 # }}}
 
 ### zコマンド###
