@@ -14,7 +14,6 @@ Plug 'itchyny/lightline.vim'
   let g:lightline = {
   \   'colorscheme': 'wombat'
   \}
-Plug 'vim-scripts/surround.vim'
 Plug 'Yggdroot/indentLine'
   let g:indentLine_char = '|'
 Plug 'junegunn/vim-easy-align'
@@ -51,6 +50,8 @@ Plug 'christianchiarulli/nvcode-color-schemes.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'skanehira/jumpcursor.vim'
   nmap [j <Plug>(jumpcursor-jump)
+Plug 'wellle/targets.vim'
+Plug 'machakann/vim-sandwich'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -355,29 +356,6 @@ filetype plugin indent on
   let g:fuzzy_motion_labels = [
         \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'
         \ ]
-"}}}
-
-" ----------------------------------------
-"  vim-surroundの設定
-" ----------------------------------------
-"{{{
-  let g:surround_no_mappings = 1
-  nmap es  <Plug>Dsurround
-  nmap cs  <Plug>Csurround
-  nmap ys  <Plug>Ysurround
-  nmap yS  <Plug>YSurround
-  nmap yss <Plug>Yssurround
-  nmap ySs <Plug>YSsurround
-  nmap ySS <Plug>YSsurround
-  xmap S   <Plug>VSurround
-  xmap gS  <Plug>VgSurround
-  if !exists("g:surround_no_insert_mappings") || ! g:surround_no_insert_mappings
-    if !hasmapto("<Plug>Isurround","i") && "" == mapcheck("<C-S>","i")
-      imap <C-S> <Plug>Isurround
-    endif
-    imap <C-G>s <Plug>Isurround
-    imap <C-G>S <Plug>ISurround
-  endif
 "}}}
 
 " ----------------------------------------
