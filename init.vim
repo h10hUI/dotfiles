@@ -7,51 +7,51 @@
 " ----------------------------------------
 "{{{
 call plug#begin('~/.config/nvim/plugged')
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'rking/ag.vim'
-Plug 'cespare/vim-toml'
-Plug 'itchyny/lightline.vim'
-  let g:lightline = {
-  \   'colorscheme': 'wombat'
-  \}
-Plug 'Yggdroot/indentLine'
-  let g:indentLine_char = '|'
-Plug 'junegunn/vim-easy-align'
-  vmap <Enter> <Plug>(EasyAlign)
-  nmap ga <Plug>(EasyAlign)
-Plug 'airblade/vim-gitgutter'
-Plug 'lambdalisue/gina.vim'
-  nmap ldo <Plug>(gina-diffget-l)
-  nmap rdo <Plug>(gina-diffget-r)
-Plug 'vim-denops/denops.vim'
-Plug 'yuki-yano/fuzzy-motion.vim'
-Plug 'fuenor/JpFormat.vim'
-  nnoremap gL :JpFormatAll!<CR>
-Plug 'mattn/emmet-vim'
-  let g:user_emmet_install_global = 0
-  autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby EmmetInstall
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-  let g:fzf_preview_window = ''
-  let g:fzf_buffers_jump = 1
-  let g:fzf_layout = { 'down': '40%' }
-Plug 'terryma/vim-expand-region'
-  vmap v <Plug>(expand_region_expand)
-  vmap <C-v> <Plug>(expand_region_shrink)
-Plug 'neoclide/coc.nvim'
-Plug 'tomtom/tcomment_vim'
-  if !exists('g:tcomment_types')
-    let g:tcomment_types = {}
-  endif
-  let g:tcomment_types['blade'] = '{{-- %s --}}'
-  let g:tcomment_types['eruby'] = '<%# %s %>'
-Plug 'tyru/columnskip.vim'
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'skanehira/jumpcursor.vim'
-  nmap [j <Plug>(jumpcursor-jump)
-Plug 'wellle/targets.vim'
-Plug 'machakann/vim-sandwich'
+  Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+  Plug 'rking/ag.vim'
+  Plug 'cespare/vim-toml'
+  Plug 'itchyny/lightline.vim'
+    let g:lightline = {
+    \   'colorscheme': 'wombat'
+    \}
+  Plug 'Yggdroot/indentLine'
+    let g:indentLine_char = '|'
+  Plug 'junegunn/vim-easy-align'
+    vmap <Enter> <Plug>(EasyAlign)
+    nmap ga <Plug>(EasyAlign)
+  Plug 'airblade/vim-gitgutter'
+  Plug 'lambdalisue/gina.vim'
+    nmap ldo <Plug>(gina-diffget-l)
+    nmap rdo <Plug>(gina-diffget-r)
+  Plug 'vim-denops/denops.vim'
+  Plug 'yuki-yano/fuzzy-motion.vim'
+  Plug 'fuenor/JpFormat.vim'
+    nnoremap gL :JpFormatAll!<CR>
+  Plug 'mattn/emmet-vim'
+    let g:user_emmet_install_global = 0
+    autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby EmmetInstall
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+    let g:fzf_preview_window = ''
+    let g:fzf_buffers_jump = 1
+    let g:fzf_layout = { 'down': '40%' }
+  Plug 'terryma/vim-expand-region'
+    vmap v <Plug>(expand_region_expand)
+    vmap <C-v> <Plug>(expand_region_shrink)
+  Plug 'neoclide/coc.nvim'
+  Plug 'tomtom/tcomment_vim'
+    if !exists('g:tcomment_types')
+      let g:tcomment_types = {}
+    endif
+    let g:tcomment_types['blade'] = '{{-- %s --}}'
+    let g:tcomment_types['eruby'] = '<%# %s %>'
+  Plug 'tyru/columnskip.vim'
+  Plug 'rebelot/kanagawa.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'skanehira/jumpcursor.vim'
+    nmap [j <Plug>(jumpcursor-jump)
+  Plug 'wellle/targets.vim'
+  Plug 'machakann/vim-sandwich'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -227,7 +227,7 @@ filetype plugin indent on
     endif
   endfunction
   " coc-pairsの設定
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "}}}
 
 " ----------------------------------------
@@ -428,7 +428,8 @@ filetype plugin indent on
   set t_Co=256
   syntax on
   let g:nvcode_termcolors=256
-  colorscheme nvcode
+  hi clear
+  colorscheme kanagawa
 " カーソルライン設定
   set cursorline
   augroup cch
