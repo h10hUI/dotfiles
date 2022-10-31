@@ -175,7 +175,7 @@ alias purge='sudo purge'
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 # docker-compose
-alias fig='docker-compose'
+alias fig='docker compose'
 # tmux関連
 alias T='tmux new -s'
 alias TK='tmux kill-session -t'
