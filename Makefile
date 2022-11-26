@@ -2,7 +2,8 @@
 all: init link defaults brew
 
 init:
-	echo "init"
+	xcode-select --install > /dev/null 2>&1 ## xcode インストール
+	@sh ./brew_install.sh ## brew インストール
 
 link:
 	echo "link"
@@ -10,5 +11,5 @@ link:
 defaults:
 	echo "default"
 
-brew:
+brew: init ## init に依存
 	echo "brew"
