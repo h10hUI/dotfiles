@@ -9,7 +9,7 @@ link:
 	echo "link"
 
 defaults:
-	echo "default"
+	./defaults.sh
 
 brew: init ## init に依存
 	echo "brew"
