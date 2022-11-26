@@ -91,6 +91,7 @@ filetype plugin indent on
   set nrformats-=octal
   set nu
   set pumheight=10
+  set pumblend=30
   set ruler
   set sh=bash
   set shiftwidth=2
