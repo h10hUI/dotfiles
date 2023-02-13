@@ -2,6 +2,7 @@
 "  __ \  | |   |   /   |  |
 "  | | | | |   |  /    |  |
 " _| |_|_|\___/ _/    _| _|
+
 " ----------------------------------------
 " Start vim-plug settings
 " ----------------------------------------
@@ -188,74 +189,7 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  cocの設定
-" ----------------------------------------
-"{{{
-  let g:coc_global_extensions = [
-    \  'coc-lists'
-    \, 'coc-json'
-    \, 'coc-sh'
-    \, 'coc-phpls'
-    \, 'coc-html'
-    \, 'coc-css'
-    \, 'coc-tsserver'
-    \, 'coc-solargraph'
-    \, 'coc-docker'
-    \, 'coc-word'
-    \, 'coc-tabnine'
-    \, 'coc-pairs'
-    \, 'coc-styled-components'
-    \]
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> gfo <Plug>(coc-format)
-  " Remap for rename current word
-  nmap <leader>rn <Plug>(coc-rename)
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-  " Use K for show documentation in preview window
-  nnoremap <silent> Q :call <SID>show_documentation()<CR>
-  " Hover表示
-  nnoremap <silent> gf :call CocAction('doHover')<CR>
-  function! s:show_documentation()
-    if &filetype == 'vim'
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
-  " coc-pairsの設定
-  inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-"}}}
-
-" ----------------------------------------
-"  window
-" ----------------------------------------
-"{{{
-  if has('nvim')
-    function! s:focus_floating() abort
-      if !empty(nvim_win_get_config(win_getid()).relative)
-        wincmd p
-        return
-      endif
-      for winnr in range(1, winnr('$'))
-        let winid = win_getid(winnr)
-        let conf = nvim_win_get_config(winid)
-        if conf.focusable && !empty(conf.relative)
-          call win_gotoid(winid)
-          return
-        endif
-      endfor
-      execute "normal! \<C-w>\<C-w>"
-    endfunction
-    nnoremap <silent> <C-w><C-w> :call <SID>focus_floating()<CR>
-  endif
-"}}}
-
-" ----------------------------------------
-"  キーマッピング設定
+"  key mappings
 " ----------------------------------------
 "{{{
 " スペースキー + . で.vimrcを開く
@@ -323,8 +257,6 @@ filetype plugin indent on
   nnoremap <C-l> :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
 " ctagsのタグジャンプ
   nnoremap <C-]> g<C-]>
-" screenコマンドとタグジャンプがバッティングするので変更
-  nnoremap <silent><C-b> :pop<CR>
 " Visualモードでインデントした時の範囲解除を避ける
   vnoremap < <gv
   vnoremap > >gv
@@ -339,6 +271,43 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
+"  local setting
+" ----------------------------------------
+"{{{
+  let s:dir = getcwd()
+  let s:ans = findfile(".vimrc.local", fnameescape(s:dir).";")
+
+  if len(s:ans) > 1
+    let s:rc = fnamemodify(s:ans, ":p:h")."/.vimrc.local"
+    call feedkeys(";source".s:rc."\<cr>")
+  endif
+"}}}
+
+" ----------------------------------------
+"  window setting
+" ----------------------------------------
+"{{{
+  if has('nvim')
+    function! s:focus_floating() abort
+      if !empty(nvim_win_get_config(win_getid()).relative)
+        wincmd p
+        return
+      endif
+      for winnr in range(1, winnr('$'))
+        let winid = win_getid(winnr)
+        let conf = nvim_win_get_config(winid)
+        if conf.focusable && !empty(conf.relative)
+          call win_gotoid(winid)
+          return
+        endif
+      endfor
+      execute "normal! \<C-w>\<C-w>"
+    endfunction
+    nnoremap <silent> <C-w><C-w> :call <SID>focus_floating()<CR>
+  endif
+"}}}
+
+" ----------------------------------------
 "  augroup settings
 " ----------------------------------------
 "{{{
@@ -346,46 +315,6 @@ filetype plugin indent on
     au!
     au FilterWritePre * if &diff | setlocal wrap | endif
   augroup END
-"}}}
-
-" ----------------------------------------
-"  fuzzy-moitonの設定
-" ----------------------------------------
-"{{{
-  nnoremap ss :FuzzyMotion<CR>
-  let g:fuzzy_motion_labels = [
-        \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'
-        \ ]
-"}}}
-
-" ----------------------------------------
-"  fzfの設定
-" ----------------------------------------
-"{{{
-  set rtp+=/opt/homebrew/opt/fzf
-  nnoremap <silent>: :Buffers<CR>'
-  nnoremap <silent>q: :History:<CR>'
-  nnoremap <silent><Leader>? :GFiles?<CR>'
-  nnoremap <silent><Leader>u :GFiles<CR>'
-  nnoremap <silent><Leader>d :History<CR>'
-  " Insert mode completion
-  imap <c-x><c-k> <plug>(fzf-complete-word)
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  imap <c-x><c-l> <plug>(fzf-complete-line)
-  nnoremap <silent>r :Tags<CR>
-"}}}
-
-" ----------------------------------------
-"  columnskipの設定
-" ----------------------------------------
-"{{{
-  nmap <silent>\h <Plug>(columnskip:nonblank:next)
-  omap <silent>\h <Plug>(columnskip:nonblank:next)
-  xmap <silent>\h <Plug>(columnskip:nonblank:next)
-  nmap <silent>\t <Plug>(columnskip:nonblank:prev)
-  omap <silent>\t <Plug>(columnskip:nonblank:prev)
-  xmap <silent>\t <Plug>(columnskip:nonblank:prev)
 "}}}
 
 " ----------------------------------------
@@ -408,20 +337,90 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  local setting
+"  coc setting
 " ----------------------------------------
 "{{{
-  let s:dir = getcwd()
-  let s:ans = findfile(".vimrc.local", fnameescape(s:dir).";")
-
-  if len(s:ans) > 1
-    let s:rc = fnamemodify(s:ans, ":p:h")."/.vimrc.local"
-    call feedkeys(";source".s:rc."\<cr>")
-  endif
+  let g:coc_global_extensions = [
+    \  'coc-lists'
+    \, 'coc-json'
+    \, 'coc-sh'
+    \, 'coc-phpls'
+    \, 'coc-html'
+    \, 'coc-css'
+    \, 'coc-tsserver'
+    \, 'coc-solargraph'
+    \, 'coc-docker'
+    \, 'coc-word'
+    \, 'coc-tabnine'
+    \, 'coc-pairs'
+    \, 'coc-styled-components'
+    \]
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> gfo <Plug>(coc-format)
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Use K for show documentation in preview window
+  nnoremap <silent> Q :call <SID>show_documentation()<CR>
+  " Hover表示
+  nnoremap <silent> gf :call CocAction('doHover')<CR>
+  function! s:show_documentation()
+    if &filetype == 'vim'
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
+  " coc-pairsの設定
+  inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "}}}
 
 " ----------------------------------------
-"  色設定
+"  fuzzy-moiton setting
+" ----------------------------------------
+"{{{
+  nnoremap ss :FuzzyMotion<CR>
+  let g:fuzzy_motion_labels = [
+        \ 'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'
+        \ ]
+"}}}
+
+" ----------------------------------------
+"  fzf setting
+" ----------------------------------------
+"{{{
+  set rtp+=/opt/homebrew/opt/fzf
+  nnoremap <silent>: :Buffers<CR>'
+  nnoremap <silent>q: :History:<CR>'
+  nnoremap <silent><Leader>? :GFiles?<CR>'
+  nnoremap <silent><Leader>u :GFiles<CR>'
+  nnoremap <silent><Leader>d :History<CR>'
+  " Insert mode completion
+  imap <c-x><c-k> <plug>(fzf-complete-word)
+  imap <c-x><c-f> <plug>(fzf-complete-path)
+  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+  imap <c-x><c-l> <plug>(fzf-complete-line)
+  nnoremap <silent>r :Tags<CR>
+"}}}
+
+" ----------------------------------------
+"  columnskip setting
+" ----------------------------------------
+"{{{
+  nmap <silent>\h <Plug>(columnskip:nonblank:next)
+  omap <silent>\h <Plug>(columnskip:nonblank:next)
+  xmap <silent>\h <Plug>(columnskip:nonblank:next)
+  nmap <silent>\t <Plug>(columnskip:nonblank:prev)
+  omap <silent>\t <Plug>(columnskip:nonblank:prev)
+  xmap <silent>\t <Plug>(columnskip:nonblank:prev)
+"}}}
+
+" ----------------------------------------
+"  color setting
 " ----------------------------------------
 "{{{
 " カラースキーム決定
@@ -444,7 +443,7 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  treesitterの設定
+"  treesitter setting
 " ----------------------------------------
 "{{{
 lua << EOF
@@ -459,7 +458,10 @@ lua << EOF
 EOF
 "}}}
 
-" Dovorak 設定
+
+" ----------------------------------------
+"  Dvorak setting
+" ----------------------------------------
 "{{{
   nnoremap H J
   nnoremap J E
