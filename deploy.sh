@@ -1,10 +1,8 @@
 #!/bin/bash -e
 
-########################################
-# Deploy                               #
-########################################
 DOT_DIRECTORY="${HOME}/dotfiles"
 NEOVIM_DIRECTORY="${HOME}/.config/nvim"
+KARABINER_DIRECTORY="${HOME}/.config/karabiner"
 
 echo "Start Deploy ..."
 cd ${DOT_DIRECTORY}
@@ -18,7 +16,7 @@ do
   [[ ${f} = "changelog.config.js" ]] && continue
   [[ ${f} = "setup.sh" ]] && continue
   [[ ${f} = "Makefile" ]] && continue
-
+  [[ ${f} = "karabiner.json" ]] && continue
   ln -snfv ${DOT_DIRECTORY}/${f} ${HOME}/${f}
 done
 
@@ -27,7 +25,12 @@ if [ ! -d ${NEOVIM_DIRECTORY} ] ; then
   cp -fv ${HOME}/dotfiles/init.vim ${HOME}/.config/nvim
 fi
 
-cp -fv ${HOME}/dotfiles/.Brewfile ${HOME}/.Brewfile
-cp -fv ${HOME}/dotfiles/starship.toml ${HOME}/.config/
+if [ ! -d ${KARABINER_DIRECTORY} ]; then
+  mkdir -p ${KARABINER_DIRECTORY}
+  cp -fv ${DOT_DIRECTORY}/karabiner.json ${KARABINER_DIRECTORY}
+fi
+
+cp -fv ${DOT_DIRECTORY}/.Brewfile ${HOME}/.Brewfile
+cp -fv ${DOT_DIRECTORY}/starship.toml ${HOME}/.config/
 
 echo "$(tput setaf 2)Deploy dotfiles complete! :)$(tput sgr0)"
