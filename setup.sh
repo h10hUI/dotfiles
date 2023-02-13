@@ -21,10 +21,8 @@ has() {
 # Vars                                 #
 ########################################
 #{{{
-DOT_DIRECTORY="${HOME}/dotfiles"
 DOT_TARBALL="https://github.com/hi0711/dotfiles"
 REMOTE_URL="https://github.com/hi0711/dotfiles.git"
-NEOVIM_DIRECTORY="${HOME}/.config/nvim"
 #}}}
 
 ########################################
@@ -65,38 +63,6 @@ fi
 #}}}
 
 ########################################
-# Deploy                               #
-########################################
-#{{{
-echo "Start Deploy ..."
-cd ${DOT_DIRECTORY}
-for f in .??*
-do
-  # ignore file & directory
-  [[ ${f} = ".git" ]] && continue
-  [[ ${f} = "init.vim" ]] && continue
-  [[ ${f} = "dein.toml" ]] && continue
-  [[ ${f} = "dein_lazy.toml" ]] && continue
-  [[ ${f} = ".Brewfile" ]] && continue
-  [[ ${f} = "starship.toml" ]] && continue
-
-  ln -snfv ${DOT_DIRECTORY}/${f} ${HOME}/${f}
-done
-
-if [ ! -d ${NEOVIM_DIRECTORY} ] ; then
-  mkdir -p ${NEOVIM_DIRECTORY}/backup ${NEOVIM_DIRECTORY}/swap ${NEOVIM_DIRECTORY}/undo
-  cp -fv ${HOME}/dotfiles/init.vim ${HOME}/.config/nvim
-  cp -fv ${HOME}/dotfiles/dein.toml ${HOME}/.config/nvim
-  cp -fv ${HOME}/dotfiles/dein_lazy.toml ${HOME}/.config/nvim
-  cp -fv ${HOME}/dotfiles/.Brewfile ${HOME}/.Brewfile
-fi
-
-cp -fv ${HOME}/dotfiles/starship.toml ${HOME}/.config/
-
-echo "$(tput setaf 2)Deploy dotfiles complete! :)$(tput sgr0)"
-#}}}
-
-########################################
 # Initialize                           #
 ########################################
 #{{{
@@ -115,7 +81,7 @@ if has "brew" ; then
 fi
 echo "$(tput setaf 2)Update Homebrew complete :)$(tput sgr0)"
 # vim settings
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs 
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 echo "$(tput setaf 2)vim settings complete :)$(tput sgr0)"
 # zsh settings
@@ -131,7 +97,7 @@ echo "$(tput setaf 2)Initialize zsh settings complete! :)$(tput sgr0)"
 defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 defaults write -g NSDocumentRevisionsWindowTransformAnimation -bool false
 defaults write -g NSInitialToolTipDelay -integer 0
-defaults write -g NSWindowResizeTime 0.1 
+defaults write -g NSWindowResizeTime 0.1
 defaults write -g QLPanelAnimationDuration -float 0.15
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 defaults write NSGlobalDomain InitialKeyRepeat -int 9
@@ -150,13 +116,13 @@ defaults write com.apple.dock mineffect suck
 defaults write com.apple.finder AnimateInfoPanes -boolean false
 defaults write com.apple.finder AnimateWindowZoom -bool false
 defaults write com.apple.finder AppleShowAllFiles YES
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false 
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 defaults write com.apple.finder QLEnableTextSelection -bool true
 defaults write com.apple.finder QLHidePanelOnDeactivate -bool true
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write com.apple.finder ShowStatusBar -bool true
 defaults write com.apple.finder ShowTabView -bool true
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true 
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 defaults write com.apple.screencapture disable-shadow -bool true
 defaults write com.apple.screencapture type -string "jpg"

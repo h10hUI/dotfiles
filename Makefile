@@ -1,15 +1,21 @@
+SHELL := /bin/bash
+.SHELLFLAGS := -eu
+
 .PHONY: all
-all: init link defaults brew
+all: init brew deploy other defaults
 
 init:
 	xcode-select --install > /dev/null 2>&1 ## xcode インストール
 	@sh ./brew_install.sh ## brew インストール
 
-link:
-	echo "link"
+deploy:
+	sh ./deploy.sh
 
 defaults:
-	./defaults.sh
+	sh ./defaults.sh
 
 brew: init ## init に依存
 	echo "brew"
+
+other: deploy ## deploy に依存
+	echo "other"
