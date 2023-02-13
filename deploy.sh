@@ -17,12 +17,13 @@ do
   [[ ${f} = "setup.sh" ]] && continue
   [[ ${f} = "Makefile" ]] && continue
   [[ ${f} = "karabiner.json" ]] && continue
+  # ln command
   ln -snfv ${DOT_DIRECTORY}/${f} ${HOME}/${f}
 done
 
 if [ ! -d ${NEOVIM_DIRECTORY} ] ; then
   mkdir -p ${NEOVIM_DIRECTORY}/backup ${NEOVIM_DIRECTORY}/swap ${NEOVIM_DIRECTORY}/undo
-  cp -fv ${HOME}/dotfiles/init.vim ${HOME}/.config/nvim
+  cp -fv ${DOT_DIRECTORY}/init.vim ${NEOVIM_DIRECTORY}
 fi
 
 if [ ! -d ${KARABINER_DIRECTORY} ]; then
