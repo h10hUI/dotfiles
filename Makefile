@@ -24,5 +24,6 @@ tools: brew # brew に依存
 	@pip3 install neovim
 	@brew bundle dump --global -f
 
-other: deploy ## deploy に依存
-	@echo "other"
+other: brew ## brew に依存
+	@mkdir -p ~/.config/karabiner
+	@cp -fv karabiner.json
