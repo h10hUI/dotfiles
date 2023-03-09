@@ -2,7 +2,6 @@
 all: init deploy brew other tools defaults
 
 init:
-	xcode-select --install > /dev/null 2>&1 ## xcode インストール
 	@sh ./brew_install.sh ## brew インストール
 
 deploy:
@@ -16,8 +15,8 @@ brew: init deploy ## init, deploy に依存
 
 tools: brew # brew に依存
 	@brew install node
-	@npm install -g git-cz http-server mermaid-cli npm-check-updates typesync ui-flow yarn n
-	@n lts
+	@npm install -g git-cz http-server mermaid-cli npm-check-updates typesync yarn n
+	@sudo n lts
 	@brew uninstall node
 	@brew install python
 	@brew unlink python
@@ -26,4 +25,4 @@ tools: brew # brew に依存
 
 other: brew ## brew に依存
 	@mkdir -p ~/.config/karabiner
-	@cp -fv karabiner.json
+	@cp -fv karabiner.json ~/.config/karabiner
