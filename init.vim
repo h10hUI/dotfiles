@@ -53,6 +53,7 @@ call plug#begin('~/.config/nvim/plugged')
     nmap [j <Plug>(jumpcursor-jump)
   Plug 'wellle/targets.vim'
   Plug 'machakann/vim-sandwich'
+  Plug 'github/copilot.vim'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -458,7 +459,15 @@ lua << EOF
 EOF
 "}}}
 
-
+" ----------------------------------------
+"  copilot setting
+" ----------------------------------------
+"{{{
+  imap <silent><expr><script><C-Space> copilot#Accept("\<CR>")
+  imap <silent><C-k> <Plug>(copilot-next)
+  imap <silent><C-l> <Plug>(copilot-prev)
+"}}}
+"
 " ----------------------------------------
 "  Dvorak setting
 " ----------------------------------------
