@@ -1,5 +1,5 @@
 [user]
-  name = hi0711
+  name = hiroshi_satoh
   email = admin@hi0711.xyz
 [color]
   ui = auto
@@ -15,8 +15,9 @@
 [merge]
   ff = false
   conflictsstyle = diff3
-[mergetool]
   tool = vimdiff
+[mergetool "vimdiff"]
+  path = nvim
 [deff]
   renames = true
 [branch]
@@ -35,6 +36,7 @@
   checkout-merge = !git checkout --conflict=merge
   ft-imp = !read -e BNAME && git branch --show-current | sed -e "s:$:--$BNAME:g" | xargs git checkout -b
   add-i = !git status --short --branch | awk '{print $2}' | tail -n +2 | xargs -p -I % git add %
+  com = !git checkout master && sleep 2 && git checkout . && git pull
 [pull]
   ff = only
 [filter "lfs"]
@@ -42,9 +44,9 @@
   smudge = git-lfs smudge %f
   required = true
 [pager]
-  log = diff-highlight | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
+  log = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
+  show = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
+  diff = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
 [branch "master"]
   remote = origin
   merge = refs/heads/master
@@ -53,12 +55,8 @@
   remote = origin
   merge = refs/heads/develop
   rebase = true
-[mergetool]
-  path = nvim
 [rebase]
   autosquash = true
-[rerere]
-  enabled = true
 [ghq]
   root = ~/workspace
 [ghq "CODECOMMIT-URL"]

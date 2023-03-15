@@ -175,7 +175,7 @@ alias purge='sudo purge'
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 # docker-compose
-alias fig='docker-compose'
+alias fig='docker compose'
 # tmux関連
 alias T='tmux new -s'
 alias TK='tmux kill-session -t'
@@ -245,13 +245,15 @@ fshow() {
 # fgc - gitのcheckoutにfzfを使う
 alias fgc='git branch | fzf | xargs git checkout'
 # fgcr - gitのremetoブランチへのcheckoutにfzfを使う
-alias fgcr='git checkout `git branch -r | awk -F \\/ '\''{print $2}'\'' | egrep -v "HEAD" | fzf`'
+alias fgcr='git checkout `git branch -r | egrep -v "HEAD" | sed "s;origin/;;" | fzf`'
 # fremo - gitのremoteブランチをupstreamに設定する
 alias fremo='git branch -r | fzf | xargs git branch -u'
 # fgd - gitのdiffにfzfを使う
 alias fgd='git branch -a | fzf | xargs git diff'
 # flog - gitのmylogにfzfを使う
 alias flog='git branch -a | fzf | xargs git mylog'
+# freb - gitのrebaseにfzfを使う
+alias freb='git branch | awk "{print $1}" | egrep -v "\*|master" | fzf | xargs git rebase -ir'
 # tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
 # `tm` will allow you to select your tmux session via fzf.
 # `tm irc` will attach to the irc session (if it exists), else it will create it.
@@ -275,35 +277,6 @@ fnv() {
   selected_files=$(echo "$files" | fzf -m --preview 'head -100 {}') &&
   nvim $selected_files
 }
-# }}}
-
-### multi_clipboard設定 ###
-# {{{
-# export SCREENEXCHANGE=$HOME/.screen-exchange
-# export SCREEN_MSGMINWAIT=1
-# export CLIPBOARD=$HOME/.clipboard
-# export CLMAXHIST=20
-# export CLSEP=$'\x07'
-# export CLX=""
-# if [[ "$OSTYPE" =~ "linux" ]];then
-#   if which -s xsel;then
-#     export CLXOS="xsel"
-#   elif which -s xsel;then
-#     export CLXOS="xclip"
-#   fi
-# elif [[ "$OSTYPE" =~ "cygwin" ]];then
-#   if which -s putclip;then
-#     export CLXOS="putclip"
-#   elif which -s xsel;then
-#     export CLXOS="xsel"
-#   elif which -s xsel;then
-#     export CLXOS="xclip"
-#   fi
-# elif [[ "$OSTYPE" =~ "darwin" ]];then
-#   if which -s pbcopy;then
-#     export CLXOS="pbcopy"
-#   fi
-# fi
 # }}}
 
 ### その他設定 ###
@@ -360,14 +333,18 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 # LS_COLORSを設定しておく
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-# zprofを開く
-# if (which zprof > /dev/null 2>&1) ;then
-#  zprof | less
-# fi
 # zcompileを実行する
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
 fi
+# anyenvのパスを通す
+export PATH="$HOME/.anyenv/bin:$PATH"
+eval "$(anyenv init - zsh)"
+# rbenvの設定用
+  if [ -d ${HOME}/.rbenv  ] ; then
+    export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+    eval "$(rbenv init - zsh)"
+  fi
 # }}}
 
 ### zコマンド###

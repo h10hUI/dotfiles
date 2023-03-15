@@ -28,5 +28,5 @@ Temporary Items
 .apdisk
 
 
-.vimrc.local
+*.local
 tags
