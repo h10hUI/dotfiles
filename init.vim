@@ -465,7 +465,7 @@ EOF
 "{{{
   imap <silent><expr><script><C-Space> copilot#Accept("\<CR>")
   imap <silent><C-k> <Plug>(copilot-next)
-  imap <silent><C-l> <Plug>(copilot-prev)
+  imap <silent><C-l> <Plug>(copilot-previous)
 "}}}
 "
 " ----------------------------------------
