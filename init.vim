@@ -54,6 +54,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'wellle/targets.vim'
   Plug 'machakann/vim-sandwich'
   Plug 'github/copilot.vim'
+  Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 filetype plugin indent on
 "}}}
