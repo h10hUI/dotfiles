@@ -20,7 +20,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/vim-easy-align'
     vmap <Enter> <Plug>(EasyAlign)
     nmap ga <Plug>(EasyAlign)
-  Plug 'airblade/vim-gitgutter'
+  Plug 'lewis6991/gitsigns.nvim'
   Plug 'lambdalisue/gina.vim'
     nmap ldo <Plug>(gina-diffget-l)
     nmap rdo <Plug>(gina-diffget-r)
@@ -468,7 +468,14 @@ EOF
   imap <silent><C-k> <Plug>(copilot-next)
   imap <silent><C-l> <Plug>(copilot-previous)
 "}}}
-"
+
+" ----------------------------------------
+"  gitsigns setting
+" ----------------------------------------
+"{{{
+  luafile ~/.config/nvim/gitsigns.lua
+"}}}
+
 " ----------------------------------------
 "  Dvorak setting
 " ----------------------------------------
