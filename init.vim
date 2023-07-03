@@ -356,6 +356,7 @@ filetype plugin indent on
     \, 'coc-tabnine'
     \, 'coc-pairs'
     \, 'coc-styled-components'
+    \, 'coc-lua'
     \]
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
