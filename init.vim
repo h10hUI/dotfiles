@@ -380,6 +380,9 @@ filetype plugin indent on
   endfunction
   " coc-pairsの設定
   inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  " coc-css の設定
+  autocmd FileType css setlocal iskeyword+=-
+  autocmd FileType scss setlocal iskeyword+=@-@
 "}}}
 
 " ----------------------------------------
