@@ -36,9 +36,6 @@ call plug#begin('~/.config/nvim/plugged')
     let g:fzf_preview_window = ''
     let g:fzf_buffers_jump = 1
     let g:fzf_layout = { 'down': '40%' }
-  Plug 'terryma/vim-expand-region'
-    vmap v <Plug>(expand_region_expand)
-    vmap <C-v> <Plug>(expand_region_shrink)
   Plug 'neoclide/coc.nvim'
   Plug 'tomtom/tcomment_vim'
     if !exists('g:tcomment_types')
@@ -51,10 +48,15 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'skanehira/jumpcursor.vim'
     nmap [j <Plug>(jumpcursor-jump)
-  Plug 'wellle/targets.vim'
   Plug 'machakann/vim-sandwich'
   Plug 'github/copilot.vim'
   Plug 'editorconfig/editorconfig-vim'
+  Plug 'lambdalisue/kensaku.vim'
+  Plug 'kana/vim-operator-user'
+  Plug 'kana/vim-operator-replace'
+    nmap _ <Plug>(operator-replace)
+  Plug 'thinca/vim-qfreplace'
+  Plug 'hrsh7th/vim-eft'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -471,6 +473,18 @@ EOF
   imap <silent><expr><script><C-Space> copilot#Accept("\<CR>")
   imap <silent><C-l> <Plug>(copilot-next)
   imap <silent><C-k> <Plug>(copilot-previous)
+"}}}
+
+" ----------------------------------------
+"  kensaku.vim setting
+" ----------------------------------------
+"{{{
+  function! Search(value) abort
+    let @/ = a:value
+    normal! n
+  endfunction
+
+  call Search(kensaku#query('kensaku'))
 "}}}
 
 " ----------------------------------------
