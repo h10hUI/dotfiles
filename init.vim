@@ -9,58 +9,35 @@
 "{{{
 call plug#begin('~/.config/nvim/plugged')
   Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-  Plug 'rking/ag.vim'
-  Plug 'cespare/vim-toml'
-  Plug 'itchyny/lightline.vim'
-    let g:lightline = {
-    \   'colorscheme': 'wombat'
-    \}
   Plug 'Yggdroot/indentLine'
-    let g:indentLine_char = '|'
-  Plug 'junegunn/vim-easy-align'
-    vmap <Enter> <Plug>(EasyAlign)
-    nmap ga <Plug>(EasyAlign)
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'lambdalisue/gina.vim'
-    nmap ldo <Plug>(gina-diffget-l)
-    nmap rdo <Plug>(gina-diffget-r)
-  Plug 'vim-denops/denops.vim'
-  Plug 'yuki-yano/fuzzy-motion.vim'
-  Plug 'phaazon/hop.nvim'
+  Plug 'cespare/vim-toml'
+  Plug 'editorconfig/editorconfig-vim'
   Plug 'fuenor/JpFormat.vim'
-    nnoremap gL :JpFormatAll!<CR>
-  Plug 'mattn/emmet-vim'
-    let g:user_emmet_install_global = 0
-    autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby EmmetInstall
+  Plug 'github/copilot.vim'
+  Plug 'hrsh7th/vim-eft'
+  Plug 'itchyny/lightline.vim'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
-    let g:fzf_preview_window = ''
-    let g:fzf_buffers_jump = 1
-    let g:fzf_layout = { 'down': '40%' }
-  Plug 'neoclide/coc.nvim'
-  Plug 'tomtom/tcomment_vim'
-    if !exists('g:tcomment_types')
-      let g:tcomment_types = {}
-    endif
-    let g:tcomment_types['blade'] = '{{-- %s --}}'
-    let g:tcomment_types['eruby'] = '<%# %s %>'
-  Plug 'tyru/columnskip.vim'
-  Plug 'rebelot/kanagawa.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'skanehira/jumpcursor.vim'
-    nmap [j <Plug>(jumpcursor-jump)
-  Plug 'machakann/vim-sandwich'
-  Plug 'github/copilot.vim'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'lambdalisue/kensaku.vim'
-  Plug 'lambdalisue/kensaku-search.vim'
-    cnoremap <CR> <Plug>(kensaku-search-replace)<CR>
-  Plug 'kana/vim-operator-user'
+  Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-operator-replace'
-    nmap __ <Plug>(operator-replace)
-  Plug 'thinca/vim-qfreplace'
-  Plug 'hrsh7th/vim-eft'
+  Plug 'kana/vim-operator-user'
+  Plug 'lambdalisue/gina.vim'
+  Plug 'lambdalisue/kensaku-search.vim'
+  Plug 'lambdalisue/kensaku.vim'
+  Plug 'lewis6991/gitsigns.nvim'
+  Plug 'machakann/vim-sandwich'
+  Plug 'mattn/emmet-vim'
+  Plug 'neoclide/coc.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'phaazon/hop.nvim'
+  Plug 'rebelot/kanagawa.nvim'
+  Plug 'rking/ag.vim'
   Plug 'stevearc/oil.nvim'
+  Plug 'thinca/vim-qfreplace'
+  Plug 'tomtom/tcomment_vim'
+  Plug 'tyru/columnskip.vim'
+  Plug 'vim-denops/denops.vim'
+  Plug 'yuki-yano/fuzzy-motion.vim'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -501,6 +478,31 @@ EOF
 "}}}
 
 " ----------------------------------------
+"  plugin setting
+" ----------------------------------------
+"{{{
+  let g:lightline = {'colorscheme': 'wombat'}
+  let g:indentLine_char = '|'
+  vmap <Enter> <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
+  nmap ldo <Plug>(gina-diffget-l)
+  nmap rdo <Plug>(gina-diffget-r)
+  nnoremap gL :JpFormatAll!<CR>
+  let g:user_emmet_install_global = 0
+  autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby EmmetInstall
+  let g:fzf_preview_window = ''
+  let g:fzf_buffers_jump = 1
+  let g:fzf_layout = { 'down': '40%' }
+  if !exists('g:tcomment_types')
+    let g:tcomment_types = {}
+  endif
+  let g:tcomment_types['blade'] = '{{-- %s --}}'
+  let g:tcomment_types['eruby'] = '<%# %s %>'
+  cnoremap <CR> <Plug>(kensaku-search-replace)<CR>
+  nmap __ <Plug>(operator-replace)
+"}}}
+
+" ----------------------------------------
 "  Dvorak setting
 " ----------------------------------------
 "{{{
@@ -544,4 +546,4 @@ EOF
   nnoremap zt zk
 "}}}
 
-" vim: set ts=2 sw=2 :
+" vim: set ts=2 sw=2 fdm=marker :
