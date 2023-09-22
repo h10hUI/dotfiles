@@ -26,6 +26,7 @@ call plug#begin('~/.config/nvim/plugged')
     nmap rdo <Plug>(gina-diffget-r)
   Plug 'vim-denops/denops.vim'
   Plug 'yuki-yano/fuzzy-motion.vim'
+  Plug 'phaazon/hop.nvim'
   Plug 'fuenor/JpFormat.vim'
     nnoremap gL :JpFormatAll!<CR>
   Plug 'mattn/emmet-vim'
@@ -492,6 +493,13 @@ EOF
 " ----------------------------------------
 "{{{
   luafile ~/.config/lua/gitsigns.lua
+"}}}
+
+" ----------------------------------------
+"  gitsigns setting
+" ----------------------------------------
+"{{{
+  luafile ~/.config/lua/hop.lua
 "}}}
 
 " ----------------------------------------
