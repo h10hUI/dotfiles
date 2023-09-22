@@ -336,12 +336,6 @@ filetype plugin indent on
   command! -nargs=0 Lcd :call SetLcd()
 " Rename {新しいファイル名}
   command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#'))
-" CocList grepを実行する
-  function CocGrep()
-    CocList grep
-  endfunction
-  command! -nargs=0 Grep :call CocGrep()
-  nnoremap <ESC><ESC>g :Grep<CR>
 "}}}
 
 " ----------------------------------------
@@ -389,6 +383,12 @@ filetype plugin indent on
   " coc-css の設定
   autocmd FileType css setlocal iskeyword+=-
   autocmd FileType scss setlocal iskeyword+=@-@
+  " CocList grepを実行する
+  function CocGrep()
+    CocList grep
+  endfunction
+  command! -nargs=0 Grep :call CocGrep()
+  nnoremap <ESC><ESC>g :Grep<CR>
 "}}}
 
 " ----------------------------------------
@@ -411,12 +411,12 @@ filetype plugin indent on
   nnoremap <silent><Leader>? :GFiles?<CR>'
   nnoremap <silent><Leader>u :GFiles<CR>'
   nnoremap <silent><Leader>d :History<CR>'
+  nnoremap <silent><Leader>r :Tags<CR>
   " Insert mode completion
   imap <c-x><c-k> <plug>(fzf-complete-word)
   imap <c-x><c-f> <plug>(fzf-complete-path)
   imap <c-x><c-j> <plug>(fzf-complete-file-ag)
   imap <c-x><c-l> <plug>(fzf-complete-line)
-  nnoremap <silent>r :Tags<CR>
 "}}}
 
 " ----------------------------------------
