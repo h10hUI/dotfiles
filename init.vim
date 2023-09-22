@@ -53,11 +53,14 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'github/copilot.vim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'lambdalisue/kensaku.vim'
+  Plug 'lambdalisue/kensaku-search.vim'
+    cnoremap <CR> <Plug>(kensaku-search-replace)<CR>
   Plug 'kana/vim-operator-user'
   Plug 'kana/vim-operator-replace'
-    nmap _ <Plug>(operator-replace)
+    nmap __ <Plug>(operator-replace)
   Plug 'thinca/vim-qfreplace'
   Plug 'hrsh7th/vim-eft'
+  Plug 'stevearc/oil.nvim'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -477,18 +480,6 @@ EOF
 "}}}
 
 " ----------------------------------------
-"  kensaku.vim setting
-" ----------------------------------------
-"{{{
-  function! Search(value) abort
-    let @/ = a:value
-    normal! n
-  endfunction
-
-  call Search(kensaku#query('kensaku'))
-"}}}
-
-" ----------------------------------------
 "  gitsigns setting
 " ----------------------------------------
 "{{{
@@ -500,6 +491,13 @@ EOF
 " ----------------------------------------
 "{{{
   luafile ~/.config/lua/hop.lua
+"}}}
+
+" ----------------------------------------
+"  oil setting
+" ----------------------------------------
+"{{{
+  luafile ~/.config/lua/oil.lua
 "}}}
 
 " ----------------------------------------
