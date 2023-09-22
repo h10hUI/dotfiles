@@ -491,7 +491,7 @@ EOF
 "  gitsigns setting
 " ----------------------------------------
 "{{{
-  luafile ~/.config/nvim/gitsigns.lua
+  luafile ~/.config/lua/gitsigns.lua
 "}}}
 
 " ----------------------------------------
