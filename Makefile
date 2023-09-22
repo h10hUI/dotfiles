@@ -1,3 +1,4 @@
+# vim: set noexpandtab :
 .PHONY: all
 all: init deploy brew other tools defaults
 
