@@ -112,8 +112,6 @@ filetype plugin indent on
     if exists('+breakindent')
       set breakindent
     endif
-  " netrwは常にtree view
-    let g:netrw_liststyle=3
   " backupファイルとスワップファイルの設定
     set backup
     set backupdir=~/.config/nvim/backup
@@ -156,19 +154,6 @@ filetype plugin indent on
       set undodir=~/.config/nvim/undo
       set undofile
     endif
-  " vimdiffの設定
-    function! s:vimdiff_in_newtab(...)
-      if a:0 == 1
-        tabedit %:p
-        exec 'rightbelow vertical diffsplit ' . a:1
-      else
-        exec 'tabedit ' . a:1
-        for l:file in a:000[1 :]
-          exec 'rightbelow vertical diffsplit ' . l:file
-        endfor
-      endif
-    endfunction
-    command! -bar -nargs=+ -complete=file Diff  call s:vimdiff_in_newtab(<f-args>)
   " grep後にcwinを表示
     autocmd QuickFixCmdPost make,grep,grepadd,vimgrep,vimgrepadd cwin
 "}}}
@@ -240,8 +225,6 @@ filetype plugin indent on
   cnoremap <C-p> <Up>
 " control lの設定
   nnoremap <C-l> :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
-" ctagsのタグジャンプ
-  nnoremap <C-]> g<C-]>
 " Visualモードでインデントした時の範囲解除を避ける
   vnoremap < <gv
   vnoremap > >gv
@@ -256,7 +239,7 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  local setting
+"  local .vimrc setting
 " ----------------------------------------
 "{{{
   let s:dir = getcwd()
@@ -499,7 +482,7 @@ EOF
   let g:tcomment_types['blade'] = '{{-- %s --}}'
   let g:tcomment_types['eruby'] = '<%# %s %>'
   cnoremap <CR> <Plug>(kensaku-search-replace)<CR>
-  nmap __ <Plug>(operator-replace)
+  nmap ` <Plug>(operator-replace)
 "}}}
 
 " ----------------------------------------
