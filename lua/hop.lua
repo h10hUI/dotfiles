@@ -6,6 +6,5 @@ require'hop'.setup {
   vim.api.nvim_set_keymap('n', '[hop]l', '<cmd>HopLine<cr>', {}),
   vim.api.nvim_set_keymap('n', '[hop]p', '<cmd>HopPattern<cr>', {}),
   vim.api.nvim_set_keymap('n', '[hop]P', '<cmd>HopPatternBackwards<cr>', {}),
-  vim.api.nvim_set_keymap('n', '[hop]b', '<cmd>HopLineStart<cr>', {}),
-  vim.api.nvim_set_keymap('n', '[hop]e', '<cmd>HopLineEnd<cr>', {})
+  vim.api.nvim_set_keymap('n', '[hop]b', '<cmd>HopLineStartMW<cr>', {}),
 }
