@@ -317,6 +317,7 @@ filetype plugin indent on
     \, 'coc-pairs'
     \, 'coc-styled-components'
     \, 'coc-lua'
+    \, 'coc-svelte'
     \]
   nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
