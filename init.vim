@@ -38,6 +38,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tyru/columnskip.vim'
   Plug 'vim-denops/denops.vim'
   Plug 'yuki-yano/fuzzy-motion.vim'
+  Plug 'leafOfTree/vim-svelte-plugin'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -483,7 +484,7 @@ EOF
   let g:tcomment_types['blade'] = '{{-- %s --}}'
   let g:tcomment_types['eruby'] = '<%# %s %>'
   cnoremap <CR> <Plug>(kensaku-search-replace)<CR>
-  nmap ` <Plug>(operator-replace)
+  nmap ^ <Plug>(operator-replace)
 "}}}
 
 " ----------------------------------------
