@@ -9,7 +9,6 @@
 "{{{
 call plug#begin('~/.config/nvim/plugged')
   Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-  Plug 'Yggdroot/indentLine'
   Plug 'cespare/vim-toml'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'fuenor/JpFormat.vim'
@@ -39,6 +38,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-denops/denops.vim'
   Plug 'yuki-yano/fuzzy-motion.vim'
   Plug 'leafOfTree/vim-svelte-plugin'
+  Plug 'shellRaining/hlchunk.nvim'
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -449,7 +449,7 @@ EOF
 "}}}
 
 " ----------------------------------------
-"  gitsigns setting
+"  hop setting
 " ----------------------------------------
 "{{{
   luafile ~/.config/lua/hop.lua
@@ -463,11 +463,17 @@ EOF
 "}}}
 
 " ----------------------------------------
+"  hlchunk setting
+" ----------------------------------------
+"{{{
+  luafile ~/.config/lua/hlchunk.lua
+"}}}
+
+" ----------------------------------------
 "  plugin setting
 " ----------------------------------------
 "{{{
   let g:lightline = {'colorscheme': 'wombat'}
-  let g:indentLine_char = '|'
   vmap <Enter> <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
   nmap ldo <Plug>(gina-diffget-l)
