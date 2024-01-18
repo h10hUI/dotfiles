@@ -24,3 +24,6 @@ PATH=/usr/local/bin:$PATH
 # {{{
   # source "$HOME/.cargo/env"
 # }}}
+
+# ni のパスを通す
+export NI_CONFIG_FILE="$HOME/.nirc"
