@@ -1,23 +1,25 @@
 require'hlchunk'.setup{
-  indent = {
-    chars = {
-      "|",
-    },
-    style = {
-      vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
-    },
-  },
+  indent = {},
   chunk = {
-    chars = {
-      horizontal_line = "─",
-      vertical_line = "│",
-      left_top = "╭",
-      left_bottom = "╰",
-      right_arrow = ">",
-    },
-    style = "#806d9c",
+    support_filetypes = {
+      "*.lua",
+      "*.js",
+      "*.ts",
+      "*.svelte",
+      "*.astro",
+    }
   },
   blank = {
     enable = false,
+  },
+  line_num = {
+    support_filetypes = {
+      "*.lua",
+      "*.js",
+      "*.ts",
+      "*.css",
+      "*.svelte",
+      "*.astro",
+    }
   }
 }
