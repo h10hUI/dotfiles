@@ -60,6 +60,9 @@ filetype plugin indent on
   set expandtab
   set fdm=marker
   set fencs=utf-8,sjis,euc-jp
+  set foldexpr=nvim_treesitter#foldexpr()
+  set foldmethod=expr
+  set foldtext=v:lua.nvim_treesitter#foldtext()
   set formatoptions+=t
   set hidden
   set history=1000
@@ -77,8 +80,8 @@ filetype plugin indent on
   set mouse=
   set nrformats-=octal
   set nu
-  set pumheight=10
   set pumblend=30
+  set pumheight=10
   set ruler
   set sh=bash
   set shiftwidth=2
