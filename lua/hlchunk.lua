@@ -4,16 +4,24 @@ local common_filetypes = {
   "*.ts",
   "*.svelte",
   "*.astro",
-  "*.css",
   "*.jsx",
   "*.tsx",
   "*.rb",
+  "*.css",
+  "*.scss",
 }
 
 require'hlchunk'.setup{
   indent = {},
   chunk = {
+    use_treesitter = true,
     support_filetypes = common_filetypes,
+    exclude_filetypes = {
+      python = true,
+      css = true,
+      scss = true,
+      html = true,
+    },
   },
   blank = {
     enable = false,
