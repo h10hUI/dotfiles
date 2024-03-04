@@ -57,6 +57,7 @@
   rebase = true
 [rebase]
   autosquash = true
+	autostash = true
 [ghq]
   root = ~/workspace
 [ghq "CODECOMMIT-URL"]
