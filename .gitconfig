@@ -1,5 +1,6 @@
+# vim: set fdm=manual:
 [user]
-  name = h10h
+  name = h10hUI
   email = admin@hi0711.xyz
 [color]
   ui = auto
@@ -22,21 +23,6 @@
   renames = true
 [branch]
   autosetuprebase = always
-[alias]
-  alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
-  mylog = log --graph --name-status --pretty=format:\"%C(red)%h %C(green)%an %Creset%s %C(yellow)%d%Creset\"
-  ae = commit --allow-empty
-  rb = rebase -i
-  rb-r = rebase -r
-  push-f = push --force-with-lease
-  delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|main|develop|master|stg|test'|xargs git branch -d; };f"
-  delete-force = !CURRENT=`git branch --show-current | head -n 1` && git branch | egrep -v '\\*|main|master|stg|$CURRENT' | xargs -p -I % git branch -D %
-  refresh= !git fetch origin && git remote prune origin
-  brlog = !git --no-pager reflog | awk '$3 == \"checkout:\" && /moving from/ {print $8}' | uniq | head
-  checkout-merge = !git checkout --conflict=merge
-  ft-imp = !read -e BNAME && git branch --show-current | sed -e "s:$:--$BNAME:g" | xargs git checkout -b
-  add-i = !git status --short --branch | awk '{print $2}' | tail -n +2 | xargs -p -I % git add %
-  com = !git checkout master && sleep 2 && git checkout . && git pull
 [pull]
   ff = only
 [filter "lfs"]
@@ -62,3 +48,19 @@
   root = ~/workspace
 [ghq "CODECOMMIT-URL"]
   vcs=git
+[alias]
+  alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
+  mylog = log --graph --name-status --pretty=format:\"%C(red)%h %C(green)%an %Creset%s %C(yellow)%d%Creset\"
+  ae = commit --allow-empty
+  rb = rebase -i
+  rb-r = rebase -r
+  push-f = push --force-with-lease
+  delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|main|develop|master|stg|test'|xargs git branch -d; };f"
+  delete-force = !CURRENT=`git branch --show-current | head -n 1` && git branch | egrep -v '\\*|main|master|stg|$CURRENT' | xargs -p -I % git branch -D %
+  refresh= !git fetch origin && git remote prune origin
+  brlog = !git --no-pager reflog | awk '$3 == \"checkout:\" && /moving from/ {print $8}' | uniq | head
+  checkout-merge = !git checkout --conflict=merge
+  ft-imp = !read -e BNAME && git branch --show-current | sed -e "s:$:--$BNAME:g" | xargs git checkout -b
+  add-i = !git status --short --branch | awk '{print $2}' | tail -n +2 | xargs -p -I % git add %
+  com = !git checkout master && sleep 2 && git checkout . && git pull
+  co-fix= !git commit --fixup `git mylog | fzf | cut -d ' ' -f 2`
