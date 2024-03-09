@@ -1,8 +1,9 @@
 #!/bin/bash -e
 
 DOT_DIRECTORY="${HOME}/dotfiles"
-NEOVIM_DIRECTORY="${HOME}/.config/nvim"
-KARABINER_DIRECTORY="${HOME}/.config/karabiner"
+CONFIG_DIRECTORY="${HOME}/.config"
+NEOVIM_DIRECTORY="${CONFIG_DIRECTORY}/nvim"
+KARABINER_DIRECTORY="${CONFIG_DIRECTORY}/karabiner"
 
 echo "Start Deploy ..."
 cd ${DOT_DIRECTORY}
@@ -17,7 +18,7 @@ do
   [[ ${f} = "setup.sh" ]] && continue
   [[ ${f} = "Makefile" ]] && continue
   [[ ${f} = "karabiner.json" ]] && continue
-  [[ ${f} = "gitsigns.lua" ]] && continue
+
   # ln command
   ln -snfv ${DOT_DIRECTORY}/${f} ${HOME}/${f}
 done
@@ -33,6 +34,7 @@ if [ ! -d ${KARABINER_DIRECTORY} ]; then
 fi
 
 cp -fv ${DOT_DIRECTORY}/.Brewfile ${HOME}/.Brewfile
-cp -fv ${DOT_DIRECTORY}/starship.toml ${HOME}/.config/
+cp -fv ${DOT_DIRECTORY}/starship.toml ${CONFIG_DIRECTORY}
+cp -fv ${DOT_DIRECTORY}/lua ${CONFIG_DIRECTORY}
 
 echo "$(tput setaf 2)Deploy dotfiles complete! :)$(tput sgr0)"
