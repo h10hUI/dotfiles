@@ -27,3 +27,6 @@ PATH=/usr/local/bin:$PATH
 
 # ni のパスを通す
 export NI_CONFIG_FILE="$HOME/.nirc"
+
+# git のエディタは nvim にする
+export GIT_EDITOR=nvim
