@@ -93,6 +93,7 @@ filetype plugin indent on
   set smartindent
   set smarttab
   set so=7
+  set spelllang+=cjk
   set tabstop=2
   set textwidth=0
   set title
