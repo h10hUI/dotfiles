@@ -165,6 +165,7 @@ alias uuu='cd ../../../'
 alias vi='vim'
 alias dox='docker exec -it `docker ps --format "{{.Names}}" | fzf` /bin/bash'
 alias dorm='docker rm -f `docker ps -aq`'
+alias nx="nlx"
 # ctagsの設定
 alias ctags='`brew --prefix`/bin/ctags'
 # purgeの設定
