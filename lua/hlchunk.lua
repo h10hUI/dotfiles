@@ -21,6 +21,7 @@ require'hlchunk'.setup{
       css = true,
       scss = true,
       html = true,
+      json = true,
     },
   },
   blank = {
