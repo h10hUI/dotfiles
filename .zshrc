@@ -218,29 +218,29 @@ bindkey '^Z' fancy-ctrl-z
 ### fzf設定###
 # {{{
 # fd - cd to selected directory
-fd() {
-  local dir
-  dir=$(find ${1:-.} -path '*/\.*' -prune \
-    -o -type d -print 2> /dev/null | fzf +m) &&
-    cd "$dir"
-  }
-export FZF_DEFAULT_COMMAND='fd --ignore .git -g ""'
+# fd() {
+#   local dir
+#   dir=$(find ${1:-.} -path '*/\.*' -prune \
+#     -o -type d -print 2> /dev/null | fzf +m) &&
+#     cd "$dir"
+#   }
+# export FZF_DEFAULT_COMMAND='fd --ignore .git -g ""'
 # fda - including hidden directories
-fda() {
-  local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
-}
+# fda() {
+#   local dir
+#   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+# }
 # fshow - git commit browser
-fshow() {
-  git log --graph --color=always \
-  --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-  --bind "ctrl-m:execute:
-  (grep -o '[a-f0-9]\{7\}' | head -1 |
-  xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-  {}
-  FZF-EOF"
-}
+# fshow() {
+#   git log --graph --color=always \
+#   --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+#   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+#   --bind "ctrl-m:execute:
+#   (grep -o '[a-f0-9]\{7\}' | head -1 |
+#   xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+#   {}
+#   FZF-EOF"
+# }
 # fgc - gitのcheckoutにfzfを使う
 alias fgc='git branch | fzf | xargs git checkout'
 # fgcr - gitのremetoブランチへのcheckoutにfzfを使う
