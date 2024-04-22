@@ -54,7 +54,7 @@
   ae = commit --allow-empty
   rb = rebase -i
   rb-r = rebase -r
-  push-f = push --force-with-lease
+  push-f = push --force-with-lease --force-if-includes
   delete-merged-branch = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|main|develop|master|stg|test'|xargs git branch -d; };f"
   delete-force = !CURRENT=`git branch --show-current | head -n 1` && git branch | egrep -v '\\*|main|master|stg|$CURRENT' | xargs -p -I % git branch -D %
   refresh= !git fetch origin && git remote prune origin
