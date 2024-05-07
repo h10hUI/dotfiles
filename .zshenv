@@ -33,3 +33,7 @@ export GIT_EDITOR=nvim
 
 # cargoのパスを通す
 . "$HOME/.cargo/env"
+
+# denoのパスを通す
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"

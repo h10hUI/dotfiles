@@ -48,6 +48,8 @@
   root = ~/workspace
 [ghq "CODECOMMIT-URL"]
   vcs=git
+[grep]
+  lineNumber = true
 [alias]
   alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
   mylog = log --graph --name-status --pretty=format:\"%C(red)%h %C(green)%an %Creset%s %C(yellow)%d%Creset\"
