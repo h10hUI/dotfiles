@@ -350,6 +350,3 @@ eval "$(anyenv init - zsh)"
 # {{{
 . ~/z/z.sh
 # }}}
-
-### 環境変数読み込み ###
-source ~/.env

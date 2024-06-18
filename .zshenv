@@ -20,11 +20,6 @@ PATH=/usr/local/bin:$PATH
   export PATH="/usr/local/opt/awscli@1/bin:$PATH"
 # }}}
 
-# cargoのパスを通す
-# {{{
-  # source "$HOME/.cargo/env"
-# }}}
-
 # ni のパスを通す
 export NI_CONFIG_FILE="$HOME/.nirc"
 
@@ -37,3 +32,6 @@ export GIT_EDITOR=nvim
 # denoのパスを通す
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+# envchain から環境変数を読み込む
+export ANTHROPIC_API_KEY=`envchain anthropic printenv ANTHROPIC_API_KEY`
