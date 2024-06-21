@@ -30,6 +30,7 @@ Temporary Items
 
 *.local
 tags
+.vim
 
 
 # Added by cargo
