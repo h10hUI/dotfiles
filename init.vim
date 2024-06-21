@@ -405,17 +405,7 @@ filetype plugin indent on
   let g:nvcode_termcolors=256
   hi clear
   colorscheme kanagawa
-" カーソルライン設定
   set cursorline
-  augroup cch
-    au!
-    autocmd WinLeave * set nocursorline
-    autocmd WinEnter,BufRead * set cursorline
-  augroup END
-  if (has("termguicolors"))
-    set termguicolors
-    hi LineNr ctermbg=NONE guibg=NONE
-  endif
 "}}}
 
 " ----------------------------------------
@@ -423,7 +413,7 @@ filetype plugin indent on
 " ----------------------------------------
 "{{{
 lua << EOF
-  require'nvim-treesitter.configs'.setup {
+  require 'nvim-treesitter.configs'.setup {
     highlight = {
       enable = true,
     },
