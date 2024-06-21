@@ -9,9 +9,15 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
-  pager = LESSCHARSET=utf-8 less
+  pager = delta
   quotepath = false
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  line-numbers = true
 [diff]
+  colorMoved = default
   tool = vimdiff
 [merge]
   ff = false
@@ -29,10 +35,6 @@
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
-[pager]
-  log = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
-  show = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
-  diff = `brew --prefix git`/share/git-core/contrib/diff-highlight/diff-highlight | less
 [branch "master"]
   remote = origin
   merge = refs/heads/master
