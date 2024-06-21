@@ -72,8 +72,6 @@ filetype plugin indent on
   set incsearch
   set laststatus=2
   set lazyredraw
-  set list
-  set listchars=tab:»-,trail:-,eol:↲,extends:>,precedes:<,nbsp:%
   set matchtime=1
   set modeline
   set modifiable

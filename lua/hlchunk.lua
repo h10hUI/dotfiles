@@ -11,10 +11,14 @@ local common_filetypes = {
   "*.scss",
 }
 
-require'hlchunk'.setup{
-  indent = {},
+local color = "#806d9c"
+
+require 'hlchunk'.setup {
+  indent = {
+    enable = true,
+  },
   chunk = {
-    use_treesitter = true,
+    enable = true,
     support_filetypes = common_filetypes,
     exclude_filetypes = {
       python = true,
@@ -23,11 +27,26 @@ require'hlchunk'.setup{
       html = true,
       json = true,
     },
+    chars = {
+      left_arrow = "",
+      horizontal_line = "─",
+      vertical_line = "│",
+      left_top = "╭",
+      left_bottom = "╰",
+      right_arrow = "",
+    },
+    style = {
+      { fg = color },
+      { fg = "#c21f30" }, -- This fg is used to highlight wrong chunk
+    },
+    delay = 100,
   },
   blank = {
     enable = false,
   },
   line_num = {
+    enable = true,
     support_filetypes = common_filetypes,
+    style = color,
   },
 }
