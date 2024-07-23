@@ -227,7 +227,7 @@ filetype plugin indent on
   cnoremap <C-n> <Down>
   cnoremap <C-p> <Up>
 " control lの設定
-  nnoremap <C-l> :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
+  nnoremap <C-i> :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
 " Visualモードでインデントした時の範囲解除を避ける
   vnoremap < <gv
   vnoremap > >gv
