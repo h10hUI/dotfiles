@@ -58,7 +58,6 @@ filetype plugin indent on
   set diffopt=vertical
   set display=lastline
   set expandtab
-  set fdm=marker
   set fencs=utf-8,sjis,euc-jp
   set foldexpr=nvim_treesitter#foldexpr()
   set foldmethod=expr
@@ -81,7 +80,6 @@ filetype plugin indent on
   set pumblend=30
   set pumheight=10
   set ruler
-  set sh=bash
   set shiftwidth=2
   set shortmess+=c
   set showcmd
@@ -150,8 +148,6 @@ filetype plugin indent on
       let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
       let @s = temp
     endfunction
-  "ステータスラインに情報を表示する
-    set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
   " undo記憶、undoファイルの生成
     if has('persistent_undo')
       set undodir=~/.config/nvim/undo
@@ -176,6 +172,8 @@ filetype plugin indent on
   nmap g# g#zz
 " insertモードから抜ける
   inoremap <silent><C-j> <ESC>
+" terminalモードから抜ける
+  tnoremap <silent>jj <C-\><C-n>
 " カーソル操作
   inoremap <C-a> <Home>
   inoremap <C-e> <End>
@@ -331,7 +329,7 @@ filetype plugin indent on
   nmap <leader>rn <Plug>(coc-rename)
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
-  " Use K for show documentation in preview window
+  " Use Q for show documentation in preview window
   nnoremap <silent> Q :call <SID>show_documentation()<CR>
   " Hover表示
   nnoremap <silent> gf :call CocAction('doHover')<CR>
