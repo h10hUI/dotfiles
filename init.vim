@@ -410,16 +410,7 @@ filetype plugin indent on
 "  treesitter setting
 " ----------------------------------------
 "{{{
-lua << EOF
-  require 'nvim-treesitter.configs'.setup {
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    }
-  }
-EOF
+  luafile ~/.config/lua/treesitter.lua
 "}}}
 
 " ----------------------------------------
