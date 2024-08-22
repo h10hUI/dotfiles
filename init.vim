@@ -59,9 +59,12 @@ filetype plugin indent on
   set display=lastline
   set expandtab
   set fencs=utf-8,sjis,euc-jp
+  set foldclose=all
+  set foldcolumn=1
   set foldexpr=nvim_treesitter#foldexpr()
   set foldmethod=expr
-  set foldtext=v:lua.nvim_treesitter#foldtext()
+  set foldopen=all
+  set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
   set formatoptions+=t
   set hidden
   set history=1000
@@ -225,7 +228,7 @@ filetype plugin indent on
   cnoremap <C-n> <Down>
   cnoremap <C-p> <Up>
 " control lの設定
-  nnoremap <C-i> :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
+  nnoremap <C-l> :nohlsearch<CR>:diffupdate<CR>:syntax sync fromstart<CR><C-l>
 " Visualモードでインデントした時の範囲解除を避ける
   vnoremap < <gv
   vnoremap > >gv
@@ -248,7 +251,7 @@ filetype plugin indent on
 
   if len(s:ans) > 1
     let s:rc = fnamemodify(s:ans, ":p:h")."/.vimrc.local"
-    call feedkeys(";source".s:rc."\<cr>")
+    call feedkeys(";source".s:rc."\<CR>")
   endif
 "}}}
 
@@ -290,13 +293,13 @@ filetype plugin indent on
 "  set commands
 " ----------------------------------------
 "{{{
-" 現在開いているファイルのディレクトリに移動(バッファ限定)
-  function SetLcd()
-    lcd %:h
-  endfunction
-  command! -nargs=0 Lcd :call SetLcd()
-" Rename {新しいファイル名}
-  command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#'))
+  " 現在開いているファイルのディレクトリに移動(バッファ限定)
+    function SetLcd()
+      lcd %:h
+    endfunction
+    command! -nargs=0 Lcd :call SetLcd()
+  " Rename {新しいファイル名}
+    command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#'))
 "}}}
 
 " ----------------------------------------
@@ -326,7 +329,7 @@ filetype plugin indent on
   nmap <silent> gr <Plug>(coc-references)
   nmap <silent> gfo <Plug>(coc-format)
   " Remap for rename current word
-  nmap <leader>rn <Plug>(coc-rename)
+  nmap <Leader>rn <Plug>(coc-rename)
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
   " Use Q for show documentation in preview window
@@ -341,7 +344,7 @@ filetype plugin indent on
     endif
   endfunction
   " coc-pairsの設定
-  inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"
   " coc-css の設定
   autocmd FileType css setlocal iskeyword+=-
   autocmd FileType scss setlocal iskeyword+=@-@
@@ -375,10 +378,10 @@ filetype plugin indent on
   nnoremap <silent><Leader>d :History<CR>'
   nnoremap <silent><Leader>r :Tags<CR>
   " Insert mode completion
-  imap <c-x><c-k> <plug>(fzf-complete-word)
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  imap <c-x><c-l> <plug>(fzf-complete-line)
+  imap <C-x><C-k> <Plug>(fzf-complete-word)
+  imap <C-x><C-f> <Plug>(fzf-complete-path)
+  imap <C-x><C-j> <Plug>(fzf-complete-file-ag)
+  imap <C-x><C-l> <Plug>(fzf-complete-line)
 "}}}
 
 " ----------------------------------------
@@ -388,9 +391,11 @@ filetype plugin indent on
   nmap <silent>\h <Plug>(columnskip:nonblank:next)
   omap <silent>\h <Plug>(columnskip:nonblank:next)
   xmap <silent>\h <Plug>(columnskip:nonblank:next)
+  vmap <silent>\h <Plug>(columnskip:nonblank:next)
   nmap <silent>\t <Plug>(columnskip:nonblank:prev)
   omap <silent>\t <Plug>(columnskip:nonblank:prev)
   xmap <silent>\t <Plug>(columnskip:nonblank:prev)
+  vmap <silent>\t <Plug>(columnskip:nonblank:prev)
 "}}}
 
 " ----------------------------------------
@@ -518,4 +523,4 @@ filetype plugin indent on
   nnoremap zt zk
 "}}}
 
-" vim: set ts=2 sw=2 fdm=marker :
+" vim: set ts=2 sw=2 fdm=marker fcl& fdo& :
