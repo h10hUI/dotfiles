@@ -43,3 +43,7 @@ tags
 # already existing elements were commented out
 
 #/target
+
+# yarn settings
+.yarnrc.yml
+.yarn/*
