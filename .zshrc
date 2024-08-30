@@ -187,6 +187,8 @@ alias ss='screen -S'
 alias sr='screen -r'
 alias sls='screen -ls'
 alias kas='find /tmp/uscreens/S-hi0711 -exec rm -rf {} +'
+# tailscale
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 #}}}
 
 ### グローバルエイリアス ###
