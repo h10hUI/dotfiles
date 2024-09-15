@@ -64,7 +64,6 @@ filetype plugin indent on
   set foldexpr=nvim_treesitter#foldexpr()
   set foldmethod=expr
   set foldopen=all
-  set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
   set formatoptions+=t
   set hidden
   set history=1000
@@ -158,6 +157,8 @@ filetype plugin indent on
     endif
   " grep後にcwinを表示
     autocmd QuickFixCmdPost make,grep,grepadd,vimgrep,vimgrepadd cwin
+  " foldtextの設定
+    set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
 "}}}
 
 " ----------------------------------------
@@ -206,11 +207,34 @@ filetype plugin indent on
 " キー入れ替え
   noremap ; :
   noremap : ;
-" xとsの挙動
-  nnoremap x "_x
-  vnoremap x "_x
-  nnoremap X "_X
-  vnoremap X "_X
+" x の挙動
+  nnoremap x "_d
+  nnoremap X "_D
+  xnoremap x "_d
+  onoremap x d
+" i<space> の設定
+  onoremap i<space> iW
+  xnoremap i<space> iW
+" redo
+  nnoremap <silent>U <C-r>
+" copy の挙動
+ xnoremap y mzy`z
+" 空行編集時の挙動
+  nnoremap <expr> i empty(getline('.')) ? '"_cc' : 'i'
+  nnoremap <expr> A empty(getline('.')) ? '"_cc' : 'A'
+" 大文字小文字の切り替え
+  " 全部大文字
+  inoremap <C-g><C-u> <esc>gUiwgi
+  " 全部小文字
+  inoremap <C-g><C-l> <esc>guiwgi
+  " 先頭大文字
+  inoremap <C-g><C-k> <esc>bgUlgi
+" 置換の設定
+  nnoremap S :%s/\V\<<C-r><C-w>\>//g<Left><Left>
+  xnoremap S "zy:%s/\V<C-r><C-r>=escape(@z,'/\')<CR>//gce<Left><Left><Left><Left>
+" ペーストの設定
+  nnoremap p ]p`]
+  nnoremap P ]P`]
 " vimgrep時の候補移動
   nnoremap <silent>[q :cprevious<CR>
   nnoremap <silent>]q :cnext<CR>
