@@ -304,13 +304,14 @@ filetype plugin indent on
 "}}}
 
 " ----------------------------------------
-"  augroup settings
+"  au settings
 " ----------------------------------------
 "{{{
   augroup diffWrap
     au!
     au FilterWritePre * if &diff | setlocal wrap | endif
   augroup END
+  au FileType {json,yaml,vim,markdown} setlocal fdo& fcl& fdm=manual
 "}}}
 
 " ----------------------------------------
