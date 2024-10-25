@@ -39,6 +39,11 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'yuki-yano/fuzzy-motion.vim'
   Plug 'leafOfTree/vim-svelte-plugin'
   Plug 'shellRaining/hlchunk.nvim'
+  Plug 'yaegassy/coc-astro', {'do': 'yarn install --frozen-lockfile'}
+  " Copilot Chat dependencies
+  Plug 'zbirenbaum/copilot.lua'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -478,6 +483,13 @@ filetype plugin indent on
 " ----------------------------------------
 "{{{
   luafile ~/.config/lua/hlchunk.lua
+"}}}
+
+" ----------------------------------------
+"  CopilotChat setting
+" ----------------------------------------
+"{{{
+  luafile ~/.config/lua/copilotc.lua
 "}}}
 
 " ----------------------------------------
