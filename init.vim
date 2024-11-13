@@ -164,6 +164,8 @@ filetype plugin indent on
     autocmd QuickFixCmdPost make,grep,grepadd,vimgrep,vimgrepadd cwin
   " foldtextの設定
     set foldtext=v:folddashes.substitute(getline(v:foldstart),'/\\*\\\|\\*/\\\|{{{\\d\\=','','g')
+  " Prepend mise shims to PATH
+    let $PATH = $HOME . '/.local/share/mise/shims:' . $PATH
 "}}}
 
 " ----------------------------------------

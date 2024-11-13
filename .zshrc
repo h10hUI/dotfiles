@@ -352,3 +352,6 @@ eval "$(anyenv init - zsh)"
 # {{{
 . ~/z/z.sh
 # }}}
+
+### mise
+eval "$(mise activate zsh)"
