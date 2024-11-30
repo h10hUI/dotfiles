@@ -18,8 +18,10 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
+  Plug 'kana/vim-textobj-user'
   Plug 'kana/vim-operator-replace'
   Plug 'kana/vim-operator-user'
+  Plug 'osyo-manga/vim-textobj-multiblock'
   Plug 'lambdalisue/gina.vim'
   Plug 'lambdalisue/kensaku-search.vim'
   Plug 'lambdalisue/kensaku.vim'
@@ -334,6 +336,15 @@ filetype plugin indent on
     command! -nargs=1 -complete=file Rename file <args> | call delete(expand('#'))
 "}}}
 
+" ----------------------------------------
+"  textobj-multiblock setting
+" ----------------------------------------
+"{{{
+  omap ab <Plug>(textobj-multiblock-a)
+  omap ib <Plug>(textobj-multiblock-i)
+  xmap ab <Plug>(textobj-multiblock-a)
+  xmap ib <Plug>(textobj-multiblock-i)
+"}}}
 " ----------------------------------------
 "  coc setting
 " ----------------------------------------
