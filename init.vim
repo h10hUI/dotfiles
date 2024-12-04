@@ -71,7 +71,7 @@ filetype plugin indent on
   set foldexpr=nvim_treesitter#foldexpr()
   set foldmethod=expr
   set foldopen=all
-  set formatoptions+=t
+  set formatoptions+=mMj
   set hidden
   set history=1000
   set hlsearch
@@ -514,7 +514,8 @@ filetype plugin indent on
   nmap ga <Plug>(EasyAlign)
   nmap ldo <Plug>(gina-diffget-l)
   nmap rdo <Plug>(gina-diffget-r)
-  nnoremap gL :JpFormatAll!<CR>
+  nnoremap gL :JpFormatAll<CR>
+  let JpFormatMarker="  "
   let g:user_emmet_install_global = 0
   autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby EmmetInstall
   let g:fzf_preview_window = ''
