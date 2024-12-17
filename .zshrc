@@ -338,20 +338,9 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 if [ ~/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
 fi
-# anyenvのパスを通す
-export PATH="$HOME/.anyenv/bin:$PATH"
-eval "$(anyenv init - zsh)"
-# rbenvの設定用
-  if [ -d ${HOME}/.rbenv  ] ; then
-    export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
-    eval "$(rbenv init - zsh)"
-  fi
-# }}}
-
 ### zコマンド###
 # {{{
 . ~/z/z.sh
 # }}}
-
 ### mise
 eval "$(mise activate zsh)"
