@@ -45,7 +45,7 @@ call plug#begin('~/.config/nvim/plugged')
   " Copilot Chat dependencies
   Plug 'zbirenbaum/copilot.lua'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+  Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'main' }
 call plug#end()
 filetype plugin indent on
 "}}}
@@ -221,6 +221,8 @@ filetype plugin indent on
   nnoremap X "_D
   xnoremap x "_d
   onoremap x d
+" cc の挙動
+  nnoremap cc "_cc
 " i<space> の設定
   onoremap i<space> iW
   xnoremap i<space> iW
