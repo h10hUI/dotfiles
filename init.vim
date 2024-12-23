@@ -30,6 +30,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'mattn/emmet-vim'
   Plug 'neoclide/coc.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter-context'
   Plug 'phaazon/hop.nvim'
   Plug 'rebelot/kanagawa.nvim'
   Plug 'rking/ag.vim'
