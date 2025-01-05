@@ -27,7 +27,7 @@ local prompts = {
     description = "バディにコードの最適化をお願いする",
   },
   Docs = {
-    prompt = "/COPILOT_GENERATE 選択したコードに関するドキュメントコメントを日本語で生成してください。",
+    prompt = "/COPILOT_GENERATE 選択したコードに関するドキュメントコメントを英語で生成してください。JS や TS の場合は JSDoc、 TS の場合は型注釈を TS に変換してください。",
     mapping = '<leader>cd',
     description = "バディにコードのドキュメント作りをお願いする",
   },

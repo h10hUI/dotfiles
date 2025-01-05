@@ -520,7 +520,7 @@ filetype plugin indent on
   nnoremap gL :JpFormatAll<CR>
   let JpFormatMarker="  "
   let g:user_emmet_install_global = 0
-  autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby EmmetInstall
+  autocmd FileType html,css,php,markdown,javascript,javascriptreact,typescriptreact,eruby,astro EmmetInstall
   let g:fzf_preview_window = ''
   let g:fzf_buffers_jump = 1
   let g:fzf_layout = { 'down': '40%' }
