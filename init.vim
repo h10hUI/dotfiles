@@ -36,7 +36,6 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'rking/ag.vim'
   Plug 'stevearc/oil.nvim'
   Plug 'thinca/vim-qfreplace'
-  Plug 'tomtom/tcomment_vim'
   Plug 'tyru/columnskip.vim'
   Plug 'vim-denops/denops.vim'
   Plug 'yuki-yano/fuzzy-motion.vim'
@@ -524,11 +523,6 @@ filetype plugin indent on
   let g:fzf_preview_window = ''
   let g:fzf_buffers_jump = 1
   let g:fzf_layout = { 'down': '40%' }
-  if !exists('g:tcomment_types')
-    let g:tcomment_types = {}
-  endif
-  let g:tcomment_types['blade'] = '{{-- %s --}}'
-  let g:tcomment_types['eruby'] = '<%# %s %>'
   cnoremap <CR> <Plug>(kensaku-search-replace)<CR>
   nmap ^ <Plug>(operator-replace)
 "}}}
