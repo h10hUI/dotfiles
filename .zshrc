@@ -344,3 +344,11 @@ fi
 # }}}
 ### mise
 eval "$(mise activate zsh)"
+
+# pnpm
+export PNPM_HOME="/Users/h10h/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
