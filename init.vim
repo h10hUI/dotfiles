@@ -369,7 +369,7 @@ filetype plugin indent on
     \, 'coc-svelte'
     \]
   nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gn <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
   nmap <silent> gfo <Plug>(coc-format)
