@@ -97,7 +97,7 @@ filetype plugin indent on
   set smartcase
   set smartindent
   set smarttab
-  set so=7
+  set so=3
   set spelllang+=cjk
   set tabstop=2
   set textwidth=0
@@ -183,6 +183,11 @@ filetype plugin indent on
   nmap # #zz
   nmap g* g*zz
   nmap g# g#zz
+" zz モーション
+  nmap zz zz<sid>(z1)
+  nnoremap <script> <sid>(z1)z zt<sid>(z2)
+  nnoremap <script> <sid>(z2)z zb<sid>(z3)
+  nnoremap <script> <sid>(z3)z zz<sid>(z1)
 " insertモードから抜ける
   inoremap <silent><C-j> <ESC>
 " terminalモードから抜ける
