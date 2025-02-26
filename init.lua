@@ -548,9 +548,11 @@ vim.keymap.set({"n", "o", "x", "v"}, "\\h", "<Plug>(columnskip:nonblank:next)", 
 vim.keymap.set({"n", "o", "x", "v"}, "\\t", "<Plug>(columnskip:nonblank:prev)", { silent = true })
 
 -- copilot
-vim.keymap.set("i", "<C-Space>", 'copilot#Accept("<CR>")', { silent = true, expr = true, script = true })
+vim.g.copilot_no_tab_map = true
+vim.keymap.set("i", "<C-Space>", 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
 vim.keymap.set("i", "<C-l>", "<Plug>(copilot-next)", { silent = true })
 vim.keymap.set("i", "<C-k>", "<Plug>(copilot-previous)", { silent = true })
+
 
 -- emmet
 vim.g.user_emmet_install_global = 0
