@@ -185,7 +185,12 @@ end
 require("lazy").setup({
   -- UI
   { "rebelot/kanagawa.nvim" },
-  { "itchyny/lightline.vim" },
+  { "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("lualine").setup(require("lua.lualine"))
+    end
+  },
   { "shellRaining/hlchunk.nvim" },
 
   -- Git
@@ -568,9 +573,6 @@ vim.keymap.set("n", "^", "<Plug>(operator-replace)")
 -- JpFormat
 vim.keymap.set("n", "gL", ":JpFormatAll<CR>")
 vim.g.JpFormatMarker = "  "
-
--- lightline
-vim.g.lightline = { colorscheme = 'wombat' }
 
 -- EasyAlign
 vim.keymap.set("v", "<Enter>", "<Plug>(EasyAlign)")
