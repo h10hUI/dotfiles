@@ -187,9 +187,6 @@ require("lazy").setup({
   { "rebelot/kanagawa.nvim" },
   { "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup(require("lua.lualine"))
-    end
   },
   { "shellRaining/hlchunk.nvim" },
 
@@ -609,7 +606,7 @@ local function load_module(name)
 end
 
 -- モジュールをループで読み込み
-local modules = {"gitsigns", "hlchunk", "hop", "oil", "treesitter", "copilotc"}
+local modules = {"gitsigns", "hlchunk", "hop", "oil", "treesitter", "copilotc", "lualine"}
 for _, name in ipairs(modules) do
   load_module(name)
 end
