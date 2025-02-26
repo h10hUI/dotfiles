@@ -2,7 +2,7 @@ local copilotChat = require'CopilotChat'
 local copilotChatSelect = require'CopilotChat.select'
 
 local function selectStagedDiff(source)
-  return copilotChatSelect.gitdiff(source, true)
+  return copilotChatSelect.git_diff(source, true)
 end
 
 local prompts = {
@@ -54,9 +54,7 @@ local prompts = {
   CommitStaged = {
     prompt = [[
       commitize の規則に従って、ステージ済みの変更に対するコミットメッセージを記述してください。
-      タイトルは最大50文字で、メッセージは72文字で折り返されるようにしてください。
-      メッセージ全体を gitcommit 言語のコード ブロックでラップしてください。
-      メッセージは英語でお願いします。
+      タイトルは最大50文字で、タイトルのみ表示してください。メッセージは英語でお願いします。
     ]],
     mapping = '<leader>cs',
     description = "バディにステージ済みのコミットメッセージの作成をお願いする",
