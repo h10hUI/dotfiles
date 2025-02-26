@@ -72,7 +72,6 @@ vim.opt.timeoutlen = 500
 vim.opt.updatetime = 250
 vim.opt.virtualedit = "all"
 vim.opt.visualbell = true
-vim.opt.t_vb = ""
 vim.opt.wildchar = 9 -- ASCII <Tab>
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full,full"
@@ -164,7 +163,7 @@ if vim.fn.has('nvim') == 1 then
       vim.cmd('wincmd p')
       return
     end
-    
+
     for i = 1, vim.fn.winnr('$') do
       local winid = vim.fn.win_getid(i)
       local conf = vim.api.nvim_win_get_config(winid)
@@ -173,10 +172,10 @@ if vim.fn.has('nvim') == 1 then
         return
       end
     end
-    
+
     vim.cmd('wincmd w')
   end
-  
+
   vim.keymap.set("n", "<C-w><C-w>", ":lua focus_floating()<CR>", { silent = true })
 end
 
@@ -194,38 +193,38 @@ require("lazy").setup({
   { "lambdalisue/gina.vim" },
 
   -- Navigation & Fuzzy finding
-  { "junegunn/fzf", build = function() vim.fn["fzf#install"]() end },
+  { "junegunn/fzf", build = ":call fzf#install()" },
   { "junegunn/fzf.vim" },
   { "phaazon/hop.nvim", config = true },
   { "yuki-yano/fuzzy-motion.vim" },
   { "stevearc/oil.nvim", opts = {} },
-  
+
   -- Editing
   { "junegunn/vim-easy-align" },
-  { "kana/vim-textobj-user" },
-  { "kana/vim-operator-replace" },
-  { "kana/vim-operator-user" },
-  { "osyo-manga/vim-textobj-multiblock" },
+  { "kana/vim-textobj-user", lazy = false },
+  { "kana/vim-operator-user", lazy = false },
+  { "kana/vim-operator-replace", dependencies = { "kana/vim-operator-user" } },
+  { "osyo-manga/vim-textobj-multiblock", dependencies = { "kana/vim-textobj-user" } },
   { "machakann/vim-sandwich" },
   { "tyru/columnskip.vim" },
   { "thinca/vim-qfreplace" },
   { "cespare/vim-toml" },
   { "mattn/emmet-vim" },
   { "fuenor/JpFormat.vim" },
-  
+
   -- LSP & Autocomplete
-  { "neoclide/coc.nvim", branch = "release" },
+  { "neoclide/coc.nvim", branch = "release", build = "npm install" },
   { "hrsh7th/vim-eft" },
   { "github/copilot.vim" },
-  { "yaegassy/coc-astro", build = "yarn install --frozen-lockfile" },
-  
+  { "yaegassy/coc-astro", build = "yarn install --immutable" },
+
   -- Treesitter
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" },
-  
+
   -- Languages
   { "leafOfTree/vim-svelte-plugin" },
-  
+
   -- Misc
   { "Shougo/vimproc.vim", build = "make" },
   { "editorconfig/editorconfig-vim" },
@@ -233,7 +232,7 @@ require("lazy").setup({
   { "vim-denops/denops.vim" },
   { "lambdalisue/kensaku-search.vim" },
   { "lambdalisue/kensaku.vim" },
-  
+
   -- Copilot Chat dependencies
   { "zbirenbaum/copilot.lua" },
   { "nvim-lua/plenary.nvim" },
@@ -407,9 +406,10 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = {"json", "yaml", "vim", "markdown"},
   callback = function()
     vim.wo.foldmethod = "manual"
-    vim.wo.foldcolumn = ""
-    vim.wo.foldopen = ""
-    vim.wo.foldclose = ""
+    vim.wo.foldcolumn = "0"
+    -- Reset foldopen and foldclose to defaults
+    vim.cmd("setlocal foldopen=block,hor,mark,percent,quickfix,search,tag,undo")
+    vim.cmd("setlocal foldclose=")
   end
 })
 
@@ -483,8 +483,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
   pattern = "*",
   callback = function()
     vim.fn.CocActionAsync('highlight')
-  end,
-  silent = true
+  end
 })
 
 vim.keymap.set("n", "Q", function()
@@ -590,7 +589,7 @@ vim.keymap.set("n", "rdo", "<Plug>(gina-diffget-r)")
 -- ----------------------------------------
 --  color setting
 -- ----------------------------------------
-vim.opt.t_Co = "256"
+vim.cmd("set t_Co=256")
 vim.cmd("syntax on")
 vim.g.nvcode_termcolors = 256
 vim.cmd("hi clear")
@@ -600,12 +599,23 @@ vim.opt.cursorline = true
 -- ----------------------------------------
 --  module imports
 -- ----------------------------------------
-require("lua.gitsigns")
-require("lua.hlchunk")
-require("lua.hop")
-require("lua.oil")
-require("lua.treesitter")
-require("lua.copilotc")
+-- Set the path to your lua modules
+local lua_path = vim.fn.expand("~/.config/lua")
+local function load_module(name)
+  local module_path = lua_path .. "/" .. name .. ".lua"
+  if vim.fn.filereadable(module_path) == 1 then
+    vim.cmd("luafile " .. module_path)
+  else
+    print("Warning: Could not load module " .. name .. " from " .. module_path)
+  end
+end
+
+load_module("gitsigns")
+load_module("hlchunk")
+load_module("hop")
+load_module("oil")
+load_module("treesitter")
+load_module("copilotc")
 
 -- ----------------------------------------
 --  Dvorak setting
