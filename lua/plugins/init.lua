@@ -38,7 +38,6 @@ local function setup()
     { "neoclide/coc.nvim", branch = "release", build = "npm install" },
     { "hrsh7th/vim-eft" },
     { "github/copilot.vim" },
-    { "yaegassy/coc-astro", build = "yarn install --immutable" },
 
     -- Treesitter
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },

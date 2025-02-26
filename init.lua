@@ -38,6 +38,9 @@ require('autocmds').setup()
 -- Plugins
 require('plugins.init').setup()
 
+-- Key mappings
+require('keymaps').setup()
+
 -- Plugin specific settings
 require('plugins.coc').setup()
 require('plugins.fzf').setup()
@@ -49,9 +52,6 @@ require('plugins.gitsigns').setup()
 require('plugins.hlchunk').setup()
 require('plugins.lualine').setup()
 require('plugins.copilotc').setup()
-
--- Key mappings (should be after plugins)
-require('keymaps').setup()
 
 -- Color settings
 require('colors').setup()
