@@ -251,7 +251,7 @@ vim.keymap.set("n", "<Leader>.", ":tabedit ~/.config/nvim/init.lua<CR>")
 -- 検索語が画面の真ん中に来るようにする
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
-vim.keymap.set("n", "*", "*zz")
+vim.keymap.set("n", "*", "*zzN")
 vim.keymap.set("n", "#", "#zz")
 vim.keymap.set("n", "g*", "g*zz")
 vim.keymap.set("n", "g#", "g#zz")
@@ -293,9 +293,6 @@ vim.keymap.set("n", "<Right>", "<C-w>>", { silent = true })
 -- ファイル操作
 vim.keymap.set("n", "<Leader>,", ":w<CR>")
 
--- 同単語検索設定
-vim.keymap.set("n", "*", "*N")
-
 -- キー入れ替え
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("n", ":", ";")
@@ -320,21 +317,18 @@ vim.keymap.set("n", "U", "<C-r>", { silent = true })
 vim.keymap.set("x", "y", "mzy`z")
 
 -- 空行編集時の挙動
-vim.keymap.set("n", "i", function()
-  if vim.fn.empty(vim.fn.getline('.')) == 1 then
-    return '"_cc'
-  else
-    return 'i'
+local function handle_empty_line(action)
+  return function()
+    if vim.fn.empty(vim.fn.getline('.')) == 1 then
+      return '"_cc'
+    else
+      return action
+    end
   end
-end, { expr = true })
+end
 
-vim.keymap.set("n", "A", function()
-  if vim.fn.empty(vim.fn.getline('.')) == 1 then
-    return '"_cc'
-  else
-    return 'A'
-  end
-end, { expr = true })
+vim.keymap.set("n", "i", handle_empty_line('i'), { expr = true })
+vim.keymap.set("n", "A", handle_empty_line('A'), { expr = true })
 
 -- 大文字小文字の切り替え
 vim.keymap.set("i", "<C-g><C-u>", "<esc>gUiwgi")  -- 全部大文字
@@ -610,53 +604,56 @@ local function load_module(name)
   end
 end
 
-load_module("gitsigns")
-load_module("hlchunk")
-load_module("hop")
-load_module("oil")
-load_module("treesitter")
-load_module("copilotc")
+-- モジュールをループで読み込み
+local modules = {"gitsigns", "hlchunk", "hop", "oil", "treesitter", "copilotc"}
+for _, name in ipairs(modules) do
+  load_module(name)
+end
 
 -- ----------------------------------------
 --  Dvorak setting
 -- ----------------------------------------
-vim.keymap.set("n", "H", "J")
-vim.keymap.set("n", "J", "E")
-vim.keymap.set("n", "K", "B")
+-- 共通のDvorakマッピングを設定する関数
+local function setup_dvorak_mappings(mode)
+  -- 基本的なキーマッピング
+  local basic_maps = {
+    {"H", "J"}, {"J", "E"}, {"K", "B"},
+    {"j", "e"}, {"k", "b"}, {"l", "<Nop>"}
+  }
+
+  -- カーソル移動用のマッピング（silent, nowait設定付き）
+  local cursor_maps = {
+    {"d", "h"}, {"gh", "j"}, {"h", "gj"},
+    {"gt", "k"}, {"t", "gk"}, {"n", "l"}
+  }
+
+  -- 基本マッピング適用
+  for _, m in ipairs(basic_maps) do
+    vim.keymap.set(mode, m[1], m[2])
+  end
+
+  -- カーソル移動マッピング適用
+  for _, m in ipairs(cursor_maps) do
+    vim.keymap.set(mode, m[1], m[2], { silent = true, nowait = true })
+  end
+end
+
+-- ノーマルモード固有のマッピング
 vim.keymap.set("n", "e", "d")
 vim.keymap.set("n", "E", "D")
 vim.keymap.set("n", "ee", "dd")
-vim.keymap.set("n", "j", "e")
-vim.keymap.set("n", "k", "b")
-vim.keymap.set("n", "l", "<Nop>")
 vim.keymap.set("n", "z;", "zr")
 vim.keymap.set("n", "z+", "zR")
-
-vim.keymap.set("n", "d", "h", { silent = true, nowait = true })
-vim.keymap.set("n", "gh", "j", { silent = true, nowait = true })
-vim.keymap.set("n", "h", "gj", { silent = true, nowait = true })
-vim.keymap.set("n", "gt", "k", { silent = true, nowait = true })
-vim.keymap.set("n", "t", "gk", { silent = true, nowait = true })
-vim.keymap.set("n", "n", "l", { silent = true, nowait = true })
-
-vim.keymap.set("v", "H", "J")
-vim.keymap.set("v", "J", "E")
-vim.keymap.set("v", "K", "B")
-vim.keymap.set("v", "e", "d")
-vim.keymap.set("v", "j", "e")
-vim.keymap.set("v", "k", "b")
-vim.keymap.set("v", "l", "<Nop>")
-
-vim.keymap.set("v", "d", "h", { silent = true, nowait = true })
-vim.keymap.set("v", "gh", "j", { silent = true, nowait = true })
-vim.keymap.set("v", "h", "gj", { silent = true, nowait = true })
-vim.keymap.set("v", "gt", "k", { silent = true, nowait = true })
-vim.keymap.set("v", "t", "gk", { silent = true, nowait = true })
-vim.keymap.set("v", "n", "l", { silent = true, nowait = true })
-
 vim.keymap.set("n", "r", "n")
 vim.keymap.set("n", "R", "N")
 vim.keymap.set("n", "zh", "zj")
 vim.keymap.set("n", "zt", "zk")
+
+-- ビジュアルモード固有のマッピング
+vim.keymap.set("v", "e", "d")
+
+-- 両モードに共通のDvorakマッピングを適用
+setup_dvorak_mappings("n")
+setup_dvorak_mappings("v")
 
 -- vim: set ts=2 sw=2 et :
