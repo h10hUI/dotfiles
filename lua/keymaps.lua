@@ -41,10 +41,10 @@ local function setup()
   vim.keymap.set("i", "<C-b>", "<Left>")
 
   -- 移動を表示行単位に
-  vim.keymap.set("n", "j", "gj")
-  vim.keymap.set("n", "k", "gk")
-  vim.keymap.set("n", "gj", "j")
-  vim.keymap.set("n", "gk", "k")
+  vim.keymap.set("n", "j", "gj", { remap = false })
+  vim.keymap.set("n", "k", "gk", { remap = false })
+  vim.keymap.set("n", "gj", "j", { remap = false })
+  vim.keymap.set("n", "gk", "k", { remap = false })
 
   -- 現在行を入れ替える
   vim.keymap.set("n", "[.", function() vim.cmd("execute 'move -1-'. v:count1") end)
@@ -66,8 +66,8 @@ local function setup()
   vim.keymap.set("n", "<Leader>,", ":w<CR>")
 
   -- キー入れ替え
-  vim.keymap.set("n", ";", ":")
-  vim.keymap.set("n", ":", ";")
+  vim.keymap.set("n", ";", ":", { remap = false })
+  vim.keymap.set("n", ":", ";", { remap = false })
 
   -- x の挙動
   vim.keymap.set("n", "x", '"_d')
