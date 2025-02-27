@@ -17,18 +17,12 @@ local function setup()
     -- Navigation & Fuzzy finding
     { "junegunn/fzf", build = ":call fzf#install()" },
     { "junegunn/fzf.vim" },
-    { "phaazon/hop.nvim", config = true },
     { "yuki-yano/fuzzy-motion.vim" },
     { "stevearc/oil.nvim", opts = {} },
-    { "hrsh7th/vim-eft" },
 
     -- Editing
-    { "junegunn/vim-easy-align" },
-    { "kana/vim-textobj-user", lazy = false },
     { "kana/vim-operator-user", lazy = false },
     { "kana/vim-operator-replace", dependencies = { "kana/vim-operator-user" } },
-    { "osyo-manga/vim-textobj-multiblock", dependencies = { "kana/vim-textobj-user" } },
-    { "machakann/vim-sandwich" },
     { "thinca/vim-qfreplace" },
     { "cespare/vim-toml" },
     { "mattn/emmet-vim" },
@@ -51,6 +45,9 @@ local function setup()
     { "vim-denops/denops.vim" },
     { "lambdalisue/kensaku-search.vim" },
     { "lambdalisue/kensaku.vim" },
+
+    -- mini.nvim
+    { "echasnovski/mini.nvim", version = '*' },
 
     -- Copilot Chat dependencies
     { "zbirenbaum/copilot.lua" },

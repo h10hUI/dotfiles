@@ -46,12 +46,12 @@ require('plugins.coc').setup()
 require('plugins.fzf').setup()
 require('plugins.misc').setup()
 require('plugins.oil').setup()
-require('plugins.hop').setup()
 require('plugins.treesitter').setup()
 require('plugins.gitsigns').setup()
 require('plugins.hlchunk').setup()
 require('plugins.lualine').setup()
 require('plugins.copilotc').setup()
+require('plugins.mini').setup()
 
 -- Color settings
 require('colors').setup()
