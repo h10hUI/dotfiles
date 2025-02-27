@@ -18,6 +18,16 @@ local function setup()
   vim.keymap.set("n", "g*", "g*zz")
   vim.keymap.set("n", "g#", "g#zz")
 
+  -- zz モーション
+  vim.fn.writefile({
+    '" zz モーション',
+    'nmap zz zz<SID>(z1)',
+    'nnoremap <script> <SID>(z1)z zt<SID>(z2)',
+    'nnoremap <script> <SID>(z2)z zb<SID>(z3)',
+    'nnoremap <script> <SID>(z3)z zz<SID>(z1)'
+  }, vim.fn.expand('~/tmp/z_cycle.vim'))
+  vim.cmd('source ' .. vim.fn.expand('~/tmp/z_cycle.vim'))
+
   -- insertモードから抜ける
   vim.keymap.set("i", "<C-j>", "<ESC>", { silent = true })
 

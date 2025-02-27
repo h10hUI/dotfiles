@@ -35,8 +35,9 @@ local function setup()
   vim.keymap.set("n", "z+", "zR")
   vim.keymap.set("n", "r", "n")
   vim.keymap.set("n", "R", "N")
-  vim.keymap.set("n", "zh", "zj")
-  vim.keymap.set("n", "zt", "zk")
+  -- Dvorak fold navigation remapping
+  vim.keymap.set("n", "zh", "zj", { remap = false })
+  vim.keymap.set("n", "zt", "zk", { remap = false })
 
   -- ビジュアルモード固有のマッピング
   vim.keymap.set("v", "e", "d")
