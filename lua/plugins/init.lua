@@ -20,6 +20,7 @@ local function setup()
     { "phaazon/hop.nvim", config = true },
     { "yuki-yano/fuzzy-motion.vim" },
     { "stevearc/oil.nvim", opts = {} },
+    { "hrsh7th/vim-eft" },
 
     -- Editing
     { "junegunn/vim-easy-align" },
@@ -28,7 +29,6 @@ local function setup()
     { "kana/vim-operator-replace", dependencies = { "kana/vim-operator-user" } },
     { "osyo-manga/vim-textobj-multiblock", dependencies = { "kana/vim-textobj-user" } },
     { "machakann/vim-sandwich" },
-    { "tyru/columnskip.vim" },
     { "thinca/vim-qfreplace" },
     { "cespare/vim-toml" },
     { "mattn/emmet-vim" },
@@ -36,7 +36,6 @@ local function setup()
 
     -- LSP & Autocomplete
     { "neoclide/coc.nvim", branch = "release", build = "npm install" },
-    { "hrsh7th/vim-eft" },
     { "github/copilot.vim" },
 
     -- Treesitter
@@ -49,7 +48,6 @@ local function setup()
     -- Misc
     { "Shougo/vimproc.vim", build = "make" },
     { "editorconfig/editorconfig-vim" },
-    { "rking/ag.vim" },
     { "vim-denops/denops.vim" },
     { "lambdalisue/kensaku-search.vim" },
     { "lambdalisue/kensaku.vim" },

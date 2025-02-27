@@ -14,10 +14,6 @@ local function setup()
     'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'
   }
 
-  -- columnskip
-  vim.keymap.set({"n", "o", "x", "v"}, "\\h", "<Plug>(columnskip:nonblank:next)", { silent = true })
-  vim.keymap.set({"n", "o", "x", "v"}, "\\t", "<Plug>(columnskip:nonblank:prev)", { silent = true })
-
   -- copilot
   vim.g.copilot_no_tab_map = true
   vim.keymap.set("i", "<C-Space>", 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
