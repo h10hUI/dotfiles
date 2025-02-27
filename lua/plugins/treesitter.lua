@@ -26,7 +26,7 @@ local function setup()
     zindex = 20,
     on_attach = nil,
   }
-  
+
   -- キーマッピングの設定
   vim.keymap.set("n", "[h", function()
     require("treesitter-context").go_to_context(vim.v.count1)

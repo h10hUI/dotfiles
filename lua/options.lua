@@ -3,7 +3,6 @@
 -- ----------------------------------------
 local function setup()
   vim.g.mapleader = " "
-  vim.g.maplocalleader = "\\"
   vim.g.yankring_clipboard_monitor = 0
 
   vim.opt.ambiwidth = "double"
