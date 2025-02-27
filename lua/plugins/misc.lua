@@ -2,12 +2,6 @@
 --  Miscellaneous plugin settings
 -- ----------------------------------------
 local function setup()
-  -- textobj-multiblock
-  vim.keymap.set("o", "ab", "<Plug>(textobj-multiblock-a)")
-  vim.keymap.set("o", "ib", "<Plug>(textobj-multiblock-i)")
-  vim.keymap.set("x", "ab", "<Plug>(textobj-multiblock-a)")
-  vim.keymap.set("x", "ib", "<Plug>(textobj-multiblock-i)")
-
   -- fuzzy-motion
   vim.keymap.set("n", "ss", ":FuzzyMotion<CR>")
   vim.g.fuzzy_motion_labels = {
@@ -37,10 +31,6 @@ local function setup()
   -- JpFormat
   vim.keymap.set("n", "gL", ":JpFormatAll<CR>")
   vim.g.JpFormatMarker = "  "
-
-  -- EasyAlign
-  vim.keymap.set("v", "<Enter>", "<Plug>(EasyAlign)")
-  vim.keymap.set("n", "ga", "<Plug>(EasyAlign)")
 
   -- gina
   vim.keymap.set("n", "ldo", "<Plug>(gina-diffget-l)")
