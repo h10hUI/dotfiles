@@ -17,7 +17,7 @@ local function setup()
 
   local color = "#806d9c"
 
-  require('hlchunk').setup {
+  require'hlchunk'.setup {
     indent = {
       enable = true,
     },

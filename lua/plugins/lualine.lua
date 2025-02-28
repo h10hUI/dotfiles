@@ -2,7 +2,7 @@
 --  Lualine plugin settings
 -- ----------------------------------------
 local function setup()
-  require('lualine').setup {
+  require'lualine'.setup {
     options = {
       theme = "kanagawa",
       component_separators = { left = "│", right = "│" },

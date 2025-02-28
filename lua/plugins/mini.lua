@@ -3,7 +3,7 @@
 -- ----------------------------------------
 local function setup()
   -- mini.ai - テキストオブジェクト拡張
-  require("mini.ai").setup({
+  require'mini.ai'.setup({
     n_lines = 500,
     custom_textobjects = {
       -- 関数のパラメータオブジェクト
@@ -12,7 +12,7 @@ local function setup()
   })
 
   -- mini.surround - サラウンド操作
-  require("mini.surround").setup({
+  require'mini.surround'.setup({
     -- 入力マッピングのキー
     mappings = {
       add = "sa",            -- サラウンド追加
@@ -26,7 +26,7 @@ local function setup()
   })
 
   -- mini.align - テキスト整列
-  require("mini.align").setup({
+  require'mini.align'.setup({
     -- アライメント設定
     mappings = {
       start = "ga",        -- アラインメント開始
@@ -49,11 +49,9 @@ local function setup()
     },
   })
 
-  -- mini.jump2d - 2D移動
-  local jump2d = require("mini.jump2d")
-
+ -- mini.jump2d - 2D移動
   -- ビルトインの1文字マッチを使用するシンプルな設定
-  jump2d.setup({
+  require'mini.jump2d'.setup({
     -- 移動設定
     mappings = {
       start_jumping = "\\\\", -- 移動開始（バックスラッシュ2回）
@@ -70,7 +68,7 @@ local function setup()
   -- カスタム2文字マッチジャンプのためのコマンド
   vim.api.nvim_create_user_command('Jump2Char2', function()
     -- 組み込みの文字列マッチを使用
-    jump2d.start(jump2d.builtin_opts.query)
+    require'mini.jump2d'.start(require'mini.jump2d'.builtin_opts.query)
   end, {})
 
   -- 2文字マッチ用のキーマッピング

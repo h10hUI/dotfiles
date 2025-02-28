@@ -3,7 +3,7 @@
 -- ----------------------------------------
 local function setup()
   -- treesitterの設定
-  require('nvim-treesitter.configs').setup {
+  require'nvim-treesitter.configs'.setup {
     highlight = {
       enable = true,
     },
@@ -13,7 +13,7 @@ local function setup()
   }
 
   -- treesitter-contextの設定
-  require('treesitter-context').setup {
+  require'treesitter-context'.setup {
     enable = true,
     multiwindow = false,
     max_lines = 0,
@@ -29,7 +29,7 @@ local function setup()
 
   -- キーマッピングの設定
   vim.keymap.set("n", "[h", function()
-    require("treesitter-context").go_to_context(vim.v.count1)
+    require'treesitter-context'.go_to_context(vim.v.count1)
   end, { silent = true })
 end
 
