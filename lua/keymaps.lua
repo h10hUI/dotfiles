@@ -150,7 +150,7 @@ local function setup()
   if vim.fn.has('nvim') == 1 then
     vim.keymap.set("n", "<C-w><C-w>", ":lua focus_floating()<CR>", { silent = true })
   end
-  
+
   -- CSS値操作用のマッピング
   vim.keymap.set('n', 'cV', 'f:lvt;', { desc = 'CSS値を選択' })
   vim.keymap.set('n', 'dV', 'f:ldt;', { desc = 'CSS値を削除' })
