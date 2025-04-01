@@ -86,6 +86,25 @@ local function setup()
   -- foldtextの設定
   vim.opt.foldtext = "v:folddashes.substitute(getline(v:foldstart),'/\\*\\|\\*/\\|{{{\\d\\=','','')"
 
+  -- Neovim 0.11でfold設定をバッファ切り替え後に遅延適用
+  vim.cmd([[
+    let g:folding_disabled_filetypes = ['json', 'yaml', 'vim', 'markdown']
+
+    function! ResetFoldSettings(timer_id)
+      if index(g:folding_disabled_filetypes, &filetype) == -1
+        set foldmethod=manual
+        set foldmethod=expr
+        set foldexpr=nvim_treesitter#foldexpr()
+      endif
+    endfunction
+
+    augroup FoldingFix
+      autocmd!
+      autocmd BufEnter,BufWinEnter,WinEnter * call timer_start(50, 'ResetFoldSettings')
+      autocmd BufReadPost,FileType * call timer_start(50, 'ResetFoldSettings')
+    augroup END
+  ]])
+
   -- Prepend mise shims to PATH
   vim.env.PATH = vim.fn.expand("$HOME/.local/share/mise/shims") .. ":" .. vim.env.PATH
 end
