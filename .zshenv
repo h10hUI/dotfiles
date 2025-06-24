@@ -34,4 +34,4 @@ export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 # envchain から環境変数を読み込む
-export ANTHROPIC_API_KEY=`envchain anthropic printenv ANTHROPIC_API_KEY`
+# export ANTHROPIC_API_KEY=`envchain anthropic printenv ANTHROPIC_API_KEY`
