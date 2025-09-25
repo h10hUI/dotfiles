@@ -38,6 +38,9 @@ require('autocmds').setup()
 -- Plugins
 require('plugins.init').setup()
 
+-- Treesitter (early initialization for folding)
+require('plugins.treesitter').setup()
+
 -- Key mappings
 require('keymaps').setup()
 
@@ -46,7 +49,6 @@ require('plugins.coc').setup()
 require('plugins.fzf').setup()
 require('plugins.misc').setup()
 require('plugins.oil').setup()
-require('plugins.treesitter').setup()
 require('plugins.gitsigns').setup()
 require('plugins.hlchunk').setup()
 require('plugins.lualine').setup()
