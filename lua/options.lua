@@ -92,16 +92,18 @@ local function setup()
 
     function! ResetFoldSettings(timer_id)
       if index(g:folding_disabled_filetypes, &filetype) == -1
-        set foldmethod=manual
-        set foldmethod=expr
-        set foldexpr=nvim_treesitter#foldexpr()
+        if exists('*nvim_treesitter#foldexpr')
+          set foldmethod=expr
+          set foldexpr=nvim_treesitter#foldexpr()
+        endif
       endif
     endfunction
 
     augroup FoldingFix
       autocmd!
-      autocmd BufEnter,BufWinEnter,WinEnter * call timer_start(50, 'ResetFoldSettings')
-      autocmd BufReadPost,FileType * call timer_start(50, 'ResetFoldSettings')
+      autocmd VimEnter * ++nested call timer_start(50, 'ResetFoldSettings')
+      autocmd BufEnter,BufWinEnter,WinEnter * call timer_start(200, 'ResetFoldSettings')
+      autocmd BufReadPost,FileType * call timer_start(200, 'ResetFoldSettings')
     augroup END
   ]])
 
