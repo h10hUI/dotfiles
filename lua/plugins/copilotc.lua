@@ -70,6 +70,7 @@ local function setup()
   copilotChat.setup({
     show_help = "yes",
     prompts = prompts,
+    model = "claude-sonnet-4",
   })
 
   -- Quick chat with Copilot
