@@ -9,6 +9,22 @@ local function setup()
     return copilotChatSelect.git_diff(source, true)
   end
 
+  -- プロジェクト固有の設定を読み込む関数
+  local function loadProjectConfig()
+    local config_files = {'.copilotchat-config.lua', '.copilotchat.lua'}
+
+    for _, filename in ipairs(config_files) do
+      local config_path = vim.fn.getcwd() .. '/' .. filename
+      if vim.fn.filereadable(config_path) == 1 then
+        local success, config = pcall(dofile, config_path)
+        if success and config then
+          return config
+        end
+      end
+    end
+    return {}
+  end
+
   local prompts = {
     Explain = {
       prompt = "/COPILOT_EXPLAIN 上記のコードを日本語で説明してください",
@@ -67,11 +83,29 @@ local function setup()
     }
   }
 
-  copilotChat.setup({
+  -- プロジェクト固有の設定を読み込み
+  local project_config = loadProjectConfig()
+
+  -- 基本設定にプロジェクト設定を統合
+  local config = {
     show_help = "yes",
     prompts = prompts,
     model = "claude-sonnet-4",
-  })
+  }
+
+  -- プロジェクト固有のシステムプロンプトがあれば追加
+  if project_config.system_prompt then
+    config.system_prompt = project_config.system_prompt
+  end
+
+  -- プロジェクト固有のプロンプトがあれば追加
+  if project_config.prompts then
+    for key, value in pairs(project_config.prompts) do
+      config.prompts[key] = value
+    end
+  end
+
+  copilotChat.setup(config)
 
   -- Quick chat with Copilot
   vim.keymap.set('n', '<leader>ccq', function()
