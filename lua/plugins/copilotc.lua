@@ -74,9 +74,11 @@ local function setup()
 
   -- Quick chat with Copilot
   vim.keymap.set('n', '<leader>ccq', function()
+    -- Select entire buffer
+    vim.cmd('normal! ggVG')
     local userInput = vim.fn.input("Quick Chat: ")
     if userInput ~= "" then
-      copilotChat.ask(userInput, { selection = copilotChatSelect.buffer })
+      copilotChat.ask(userInput)
     end
   end, { desc = "CopilotChat - Quick chat" })
 end
