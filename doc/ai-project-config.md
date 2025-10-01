@@ -10,9 +10,10 @@ CopilotChatとCodeCompanionで設定を共通化するために、Markdownファ
 ```
 プロジェクトルート/
   ├── .ai-prompt.md              # 共通AIプロンプト（Markdown）
-  ├── .copilotchat-config.lua     # CopilotChat設定（雛形）
-  └── .codecompanion.lua          # CodeCompanion設定（雛形）
+  └── .copilotchat-config.lua     # CopilotChat設定
 ```
+
+**注意**: CodeCompanion は memory 機能で `.ai-prompt.md` を読み込みます（グローバル設定に追加済み）
 
 ### .ai-prompt.md の例（最低限）
 ```markdown
@@ -23,64 +24,62 @@ CopilotChatとCodeCompanionで設定を共通化するために、Markdownファ
 ### .codecompanion.lua の雛形（最低限）
 ```lua
 -- CodeCompanion プロジェクト固有設定
-return {
-  opts = {
-    system_prompt = function(opts)
-      local md_path = vim.fn.getcwd() .. '/.ai-prompt.md'
-      if vim.fn.filereadable(md_path) == 1 then
-        local content = vim.fn.readfile(md_path)
-        return table.concat(content, '\n')
-      end
-      return "You are a helpful programming assistant."
-    end,
-  },
-}
+-- 注意: codecompanion.nvim はプロジェクトローカルの .codecompanion.lua を
+-- 自動的に読み込む機能はありません。代わりに memory 機能を使用してください。
+-- グローバル設定の lua/plugins/codecompanion.lua に以下を追加：
+--
+-- memory = {
+--   opts = { chat = { enabled = true } },
+--   default = {
+--     description = "Project-specific AI prompt files",
+--     parser = "claude",
+--     files = { ".ai-prompt.md", "CLAUDE.md" },
+--   },
+-- }
 ```
 
 ### .copilotchat-config.lua の雛形（最低限）
 ```lua
 -- CopilotChat プロジェクト固有設定
 local md_path = vim.fn.getcwd() .. '/.ai-prompt.md'
+local system_prompt = nil
+
 if vim.fn.filereadable(md_path) == 1 then
-  local content = vim.fn.readfile(md_path)
-  return {
-    system_prompt = table.concat(content, '\n'),
-  }
+  local file = io.open(md_path, 'r')
+  if file then
+    system_prompt = file:read('*all')
+    file:close()
+  end
 end
 
-return {}
+return {
+  system_prompt = system_prompt,
+}
 ```
 
 ## プラグイン固有設定の追加
 
-### CodeCompanion: プロンプトやオプションを追加
+### CodeCompanion: memory 機能で .ai-prompt.md を読み込む
 ```lua
-return {
-  opts = {
-    system_prompt = function(opts)
-      local md_path = vim.fn.getcwd() .. '/.ai-prompt.md'
-      if vim.fn.filereadable(md_path) == 1 then
-        local content = vim.fn.readfile(md_path)
-        return table.concat(content, '\n')
-      end
-      return "You are a helpful programming assistant."
-    end,
-    -- その他のオプション
-    log_level = "ERROR",
-  },
-  prompts = {
-    ["ProjectSpecific"] = {
-      strategy = "chat",
-      description = "プロジェクト固有の質問",
-      prompts = {
-        {
-          role = "user",
-          content = "このプロジェクトの構造を説明してください",
-        },
+-- グローバル設定 lua/plugins/codecompanion.lua に追加
+require("codecompanion").setup({
+  memory = {
+    opts = {
+      chat = {
+        enabled = true,
+      },
+    },
+    default = {
+      description = "Project-specific AI prompt files",
+      parser = "claude",
+      files = {
+        ".ai-prompt.md",
+        "CLAUDE.md",
+        "CLAUDE.local.md",
       },
     },
   },
-}
+})
 ```
 
 ### CopilotChat: プロンプトを追加
@@ -89,8 +88,11 @@ local md_path = vim.fn.getcwd() .. '/.ai-prompt.md'
 local system_prompt = nil
 
 if vim.fn.filereadable(md_path) == 1 then
-  local content = vim.fn.readfile(md_path)
-  system_prompt = table.concat(content, '\n')
+  local file = io.open(md_path, 'r')
+  if file then
+    system_prompt = file:read('*all')
+    file:close()
+  end
 end
 
 return {
@@ -181,9 +183,10 @@ return {
 ## 設定の適用
 
 1. プロジェクトルートに `.ai-prompt.md` を作成
-2. 上記の雛形を使って `.codecompanion.lua` と `.copilotchat-config.lua` を作成
-3. Neovimを再起動（または `:e` で再読み込み）
-4. 両方のAIプラグインで共通のプロンプトが適用される
+2. CopilotChat用に `.copilotchat-config.lua` を作成
+3. CodeCompanion は memory 機能で自動的に `.ai-prompt.md` を読み込む
+4. Neovimを再起動
+5. 両方のAIプラグインで共通のプロンプトが適用される
 
 ## キーバインド
 

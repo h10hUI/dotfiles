@@ -56,6 +56,22 @@ All non-code text responses must be written in Japanese language.
 Keep your answers short and impersonal.]]
       end,
     },
+    memory = {
+      opts = {
+        chat = {
+          enabled = true,
+        },
+      },
+      default = {
+        description = "Project-specific AI prompt files",
+        parser = "claude",
+        files = {
+          ".ai-prompt.md",
+          "CLAUDE.md",
+          "CLAUDE.local.md",
+        },
+      },
+    },
     tools = {
       web_search = {
         enabled = true,
