@@ -91,6 +91,10 @@ local function setup()
     show_help = "yes",
     prompts = prompts,
     model = "claude-sonnet-4",
+    window = {
+      layout = "vertical",
+      width = 0.4,
+    },
   }
 
   -- プロジェクト固有のシステムプロンプトがあれば追加

@@ -64,6 +64,7 @@ local function setup()
         "MunifTanjim/nui.nvim",
       },
       config = function()
+        vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim")
         require("plugins.codecompanion").setup()
       end,
     },

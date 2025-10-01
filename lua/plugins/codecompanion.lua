@@ -2,10 +2,14 @@
 --  CodeCompanion.nvim plugin settings
 -- ----------------------------------------
 local function setup()
+  vim.g.codecompanion_slash_command_provider = "default"
   require("codecompanion").setup({
     strategies = {
       chat = {
         adapter = "claude",
+        opts = {
+          completion_provider = "coc",
+        },
       },
       inline = {
         adapter = "claude",
@@ -48,7 +52,7 @@ local function setup()
       },
     },
     opts = {
-      log_level = "ERROR",
+      log_level = "TRACE",
       system_prompt = function(opts)
         return [[You are an AI programming assistant integrated into Neovim.
 You are helpful, expert programmer.
