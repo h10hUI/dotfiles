@@ -43,3 +43,6 @@ tags
 
 # mise
 mise.local.toml
+
+# environment variables
+.env

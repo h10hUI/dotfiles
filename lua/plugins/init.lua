@@ -53,6 +53,25 @@ local function setup()
     { "zbirenbaum/copilot.lua" },
     { "nvim-lua/plenary.nvim" },
     { "CopilotC-Nvim/CopilotChat.nvim", branch = "main" },
+
+    -- Avante.nvim (Cursor-like AI IDE)
+    { "MunifTanjim/nui.nvim" },
+    {
+      "yetone/avante.nvim",
+      event = "VeryLazy",
+      lazy = false,
+      version = false,
+      build = "make",
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "nvim-tree/nvim-web-devicons",
+      },
+      config = function()
+        require("plugins.avante").setup()
+      end,
+    },
   })
 end
 

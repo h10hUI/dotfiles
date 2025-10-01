@@ -3,6 +3,11 @@
 # 環境変数
 export LANG=ja_JP.UTF-8
 
+# .env ファイルを読み込み（存在する場合）
+if [ -f ~/dotfiles/.env ]; then
+    source ~/dotfiles/.env
+fi
+
 # 重複PATHを登録しない
 typeset -U path PATH
 
