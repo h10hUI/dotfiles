@@ -73,6 +73,23 @@ local function setup()
 
   -- 2文字マッチ用のキーマッピング
   vim.api.nvim_set_keymap('n', '\\s', '<cmd>Jump2Char2<cr>', {})
+
+  -- mini.pick - listchars の問題があるため無効化
+  -- require'mini.pick'.setup({
+  --   window = {
+  --     config = function()
+  --       local height = math.floor(0.618 * vim.o.lines)
+  --       local width = math.floor(0.618 * vim.o.columns)
+  --       return {
+  --         anchor = 'NW',
+  --         height = height,
+  --         width = width,
+  --         row = math.floor(0.5 * (vim.o.lines - height)),
+  --         col = math.floor(0.5 * (vim.o.columns - width)),
+  --       }
+  --     end,
+  --   },
+  -- })
 end
 
 return { setup = setup }

@@ -2,7 +2,6 @@
 --  CodeCompanion.nvim plugin settings
 -- ----------------------------------------
 local function setup()
-  vim.g.codecompanion_slash_command_provider = "default"
   require("codecompanion").setup({
     strategies = {
       chat = {
@@ -51,6 +50,28 @@ local function setup()
         },
       },
     },
+    slash_commands = {
+      ["symbols"] = {
+        opts = {
+          provider = "default",
+        },
+      },
+      ["buffer"] = {
+        opts = {
+          provider = "default",
+        },
+      },
+      ["file"] = {
+        opts = {
+          provider = "default",
+        },
+      },
+      ["fetch"] = {
+        opts = {
+          provider = "default",
+        },
+      },
+    },
     opts = {
       log_level = "TRACE",
       system_prompt = function(opts)
@@ -86,6 +107,56 @@ Keep your answers short and impersonal.]]
       },
     },
   })
+
+  -- fzf を使ったカスタムプロバイダーを作成
+  local symbols_module = require("codecompanion.strategies.chat.slash_commands.symbols")
+  local original_execute = symbols_module.execute
+
+  -- fzf プロバイダー関数
+  local function fzf_provider(SlashCommand)
+    local scan = require("plenary.scandir")
+    local files = scan.scan_dir(vim.fn.getcwd(), {
+      hidden = true,
+      depth = 10,
+      add_dirs = false,
+    })
+
+    -- fzf に渡すファイルリスト
+    local fzf_files = table.concat(files, "\n")
+
+    vim.fn['fzf#run'](vim.fn['fzf#wrap']({
+      source = vim.split(fzf_files, "\n"),
+      sink = function(selected)
+        SlashCommand:output({
+          path = selected,
+          relative_path = selected,
+        })
+      end,
+      options = "--prompt='Select symbol(s): '"
+    }))
+  end
+
+  symbols_module.execute = function(self, SlashCommands)
+    -- fzf プロバイダーを使用
+    return fzf_provider(self)
+  end
+
+  -- output を上書きして visible = true にする（バッファにも表示）
+  local config = require("codecompanion.config")
+  local Chat = require("codecompanion.strategies.chat")
+  local original_chat_add_message = Chat.add_message
+
+  Chat.add_message = function(self, message, options)
+    -- symbols からの呼び出しの場合はバッファにも表示
+    if options and options.context_id and options.context_id:match("^<symbols>") then
+      local new_options = vim.tbl_extend("force", options, { visible = true })
+      original_chat_add_message(self, message, new_options)
+      -- バッファにも表示
+      self:add_buf_message(message, new_options)
+      return self
+    end
+    return original_chat_add_message(self, message, options)
+  end
 
   -- キーマッピング設定（<leader>a* で統一）
   local keymap = vim.keymap.set
