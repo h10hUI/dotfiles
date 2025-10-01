@@ -54,22 +54,17 @@ local function setup()
     { "nvim-lua/plenary.nvim" },
     { "CopilotC-Nvim/CopilotChat.nvim", branch = "main" },
 
-    -- Avante.nvim (Cursor-like AI IDE)
+    -- CodeCompanion.nvim (AI Coding, Vim Style)
     { "MunifTanjim/nui.nvim" },
     {
-      "yetone/avante.nvim",
-      event = "VeryLazy",
-      lazy = false,
-      version = false,
-      build = "make",
+      "olimorris/codecompanion.nvim",
       dependencies = {
-        "nvim-treesitter/nvim-treesitter",
         "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
         "MunifTanjim/nui.nvim",
-        "nvim-tree/nvim-web-devicons",
       },
       config = function()
-        require("plugins.avante").setup()
+        require("plugins.codecompanion").setup()
       end,
     },
   })
