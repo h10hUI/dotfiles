@@ -65,12 +65,13 @@ local function setup()
     Commit = {
       prompt = [[
         commitize の規則に従って、変更に対するコミットメッセージを記述してください。
-        タイトルは必ず50文字以内で、タイトルのみ表示してください。メッセージは英語でお願いします。
+        タイトルは絶対に40文字以内で、タイトルのみ表示してください。メッセージは英語でお願いします。prefix を含めて50文字を超えないようにしてください。文頭は小文字で始めてください。
         余計なコードの解析やアドバイス、説明は絶対にしないでください。
       ]],
       mapping = '<leader>cc',
       description = "バディにコミットメッセージの作成をお願いする",
       selection = copilotChatSelect.gitdiff,
+      model = 'gpt-4.1',
     },
     CommitStaged = {
       prompt = [[
