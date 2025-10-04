@@ -86,7 +86,13 @@ local function setup()
   vim.keymap.set("n", "U", "<C-r>", { silent = true })
 
   -- copy の挙動
-  vim.keymap.set("x", "y", "mzy`z")
+  vim.keymap.set("x", "y", function()
+    if vim.v.register == '"' then  -- デフォルトレジスタの場合のみ
+      return 'mzy`z'
+    else
+      return 'y'  -- レジスタ指定時は通常動作
+    end
+  end, { expr = true })
 
   -- 空行編集時の挙動
   vim.keymap.set("n", "i", utils.handle_empty_line('i'), { expr = true })
