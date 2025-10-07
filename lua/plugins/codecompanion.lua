@@ -48,6 +48,20 @@ local function setup()
           layout = "vertical",
           width = 0.4,
         },
+        opts = {
+          on_buf_enter = function(buf)
+            -- Treesitterのデコレーションエラーを抑制
+            vim.api.nvim_buf_call(buf, function()
+              local old_notify = vim.notify
+              vim.notify = function(msg, level, opts)
+                if type(msg) == "string" and msg:match("Invalid 'end_col': out of range") then
+                  return
+                end
+                old_notify(msg, level, opts)
+              end
+            end)
+          end,
+        },
       },
     },
     slash_commands = {
