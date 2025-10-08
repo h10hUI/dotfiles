@@ -198,6 +198,23 @@ Keep your answers short and impersonal.]]
       vim.cmd("CodeCompanionChat " .. input)
     end
   end, vim.tbl_extend("force", opts, { desc = "CodeCompanion: Quick question" }))
+
+  -- Diff accept後にdiffウィンドウを閉じる
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "CodeCompanionDiffAccepted",
+    callback = function(event)
+      vim.defer_fn(function()
+        -- フローティングウィンドウを探して閉じる
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local win_config = vim.api.nvim_win_get_config(win)
+          if win_config.relative ~= "" then
+            vim.api.nvim_win_close(win, false)
+            break
+          end
+        end
+      end, 50)
+    end,
+  })
 end
 
 return { setup = setup }
