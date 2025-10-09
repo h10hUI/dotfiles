@@ -27,6 +27,13 @@ local function setup()
   vim.keymap.set("n", "gfo", "<Plug>(coc-format)", { silent = true })
   vim.keymap.set("n", "<Leader>rn", "<Plug>(coc-rename)", { silent = true })
 
+  -- 診断(エラー/警告)のジャンプ
+  vim.keymap.set("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
+  vim.keymap.set("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
+  -- エラーのみにジャンプ（警告をスキップ）
+  vim.keymap.set("n", "[e", "<Plug>(coc-diagnostic-prev-error)", { silent = true })
+  vim.keymap.set("n", "]e", "<Plug>(coc-diagnostic-next-error)", { silent = true })
+
   vim.api.nvim_create_autocmd("CursorHold", {
     pattern = "*",
     callback = function()

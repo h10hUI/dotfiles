@@ -50,12 +50,19 @@ local function setup()
         },
         opts = {
           on_buf_enter = function(buf)
-            -- Treesitterのデコレーションエラーを抑制
+            -- エラーメッセージを抑制
             vim.api.nvim_buf_call(buf, function()
               local old_notify = vim.notify
               vim.notify = function(msg, level, opts)
-                if type(msg) == "string" and msg:match("Invalid 'end_col': out of range") then
-                  return
+                if type(msg) == "string" then
+                  -- Treesitterのデコレーションエラーを抑制
+                  if msg:match("Invalid 'end_col': out of range") or msg:match("Invalid 'end_row': out of range") then
+                    return
+                  end
+                  -- Invalid buffer idエラーを抑制
+                  if msg:match("Invalid buffer id") then
+                    return
+                  end
                 end
                 old_notify(msg, level, opts)
               end
