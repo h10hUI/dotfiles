@@ -45,6 +45,7 @@ local function setup()
       prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、プロンプトの規約に準じてパフォーマンスと可読性を向上させてください。説明は日本語でお願いします。",
       mapping = '<leader>co',
       description = "バディにコードの最適化をお願いする",
+      model = 'gpt-4.1',
     },
     Docs = {
       prompt = "/COPILOT_GENERATE 選択されたコードに対して、実装に既に定義されている型情報を除外したドキュメンテーションコメントを英語で生成してください。記法は JSDoc に従ってください。",
