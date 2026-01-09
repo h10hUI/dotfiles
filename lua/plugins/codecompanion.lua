@@ -3,7 +3,7 @@
 -- ----------------------------------------
 local function setup()
   require("codecompanion").setup({
-    strategies = {
+    interactions = {
       chat = {
         adapter = "claude",
         opts = {
@@ -130,7 +130,7 @@ Keep your answers short and impersonal.]]
   })
 
   -- fzf を使ったカスタムプロバイダーを作成
-  local symbols_module = require("codecompanion.strategies.chat.slash_commands.symbols")
+  local symbols_module = require("codecompanion.interactions.chat.slash_commands.builtin.symbols")
   local original_execute = symbols_module.execute
 
   -- fzf プロバイダー関数
@@ -164,7 +164,7 @@ Keep your answers short and impersonal.]]
 
   -- output を上書きして visible = true にする（バッファにも表示）
   local config = require("codecompanion.config")
-  local Chat = require("codecompanion.strategies.chat")
+  local Chat = require("codecompanion.interactions.chat")
   local original_chat_add_message = Chat.add_message
 
   Chat.add_message = function(self, message, options)

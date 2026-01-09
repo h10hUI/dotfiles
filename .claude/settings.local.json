@@ -5,7 +5,8 @@
       "Bash(git log:*)",
       "Bash(git push:*)",
       "Read(//Users/h10h/.local/share/nvim/lazy/codecompanion.nvim/lua/codecompanion/strategies/inline/**)",
-      "Read(//Users/h10h/.local/share/nvim/lazy/codecompanion.nvim/**)"
+      "Read(//Users/h10h/.local/share/nvim/lazy/codecompanion.nvim/**)",
+      "Bash(xargs grep:*)"
     ],
     "deny": [],
     "ask": []
