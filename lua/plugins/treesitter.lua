@@ -35,31 +35,22 @@ local function setup()
     require'treesitter-context'.go_to_context(vim.v.count1)
   end, { silent = true })
 
-  -- fold設定をTreesitter初期化後に設定
+  -- fold設定をTreesitter初期化後に設定 (Neovim 0.10+ 組み込みfoldexprを使用)
   vim.opt.foldmethod = "expr"
-  vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+  vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
   -- 特定のファイルタイプでfoldingを無効化
-  vim.cmd([[
-    let g:folding_disabled_filetypes = ['json', 'yaml', 'vim', 'markdown']
-
-    function! ResetFoldSettings(...)
-      if index(g:folding_disabled_filetypes, &filetype) == -1
-        if exists('*nvim_treesitter#foldexpr')
-          set foldmethod=expr
-          set foldexpr=nvim_treesitter#foldexpr()
-        endif
-      endif
-    endfunction
-
-    augroup FoldingFix
-      autocmd!
-      autocmd BufReadPost * call timer_start(1, 'ResetFoldSettings') | call timer_start(50, 'ResetFoldSettings') | call timer_start(100, 'ResetFoldSettings')
-      autocmd FileType * call timer_start(1, 'ResetFoldSettings') | call timer_start(50, 'ResetFoldSettings')
-      autocmd BufWinEnter * call timer_start(1, 'ResetFoldSettings')
-      autocmd CursorHold,CursorHoldI * call ResetFoldSettings()
-    augroup END
-  ]])
+  local disabled_ft = { json = true, yaml = true, vim = true, markdown = true }
+  vim.api.nvim_create_augroup("FoldingFix", { clear = true })
+  vim.api.nvim_create_autocmd({ "BufReadPost", "FileType", "BufWinEnter" }, {
+    group = "FoldingFix",
+    callback = function()
+      if not disabled_ft[vim.bo.filetype] then
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      end
+    end,
+  })
 end
 
 return { setup = setup }
