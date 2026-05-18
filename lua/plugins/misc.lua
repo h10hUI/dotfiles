@@ -8,6 +8,12 @@ local function setup()
     'A', 'O', 'E', 'U', 'I', 'D', 'H', 'T', 'N', 'S', 'P', 'Y', 'F', 'G', 'C', 'R', 'L', 'Q', 'J', 'K', 'X', 'B', 'M', 'W', 'V', 'Z'
   }
 
+  -- copilot.lua は CopilotChat の認証用にのみ使い、補完は copilot.vim に任せる
+  require('copilot').setup({
+    suggestion = { enabled = false, auto_trigger = false },
+    panel = { enabled = false },
+  })
+
   -- copilot
   vim.g.copilot_no_tab_map = true
   vim.keymap.set("i", "<C-Space>", 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })

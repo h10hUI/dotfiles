@@ -52,6 +52,7 @@ require('plugins.oil').setup()
 require('plugins.gitsigns').setup()
 require('plugins.hlchunk').setup()
 require('plugins.lualine').setup()
+require('plugins.copilot').setup()
 require('plugins.copilotc').setup()
 require('plugins.mini').setup()
 
