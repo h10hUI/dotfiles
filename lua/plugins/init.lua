@@ -55,19 +55,22 @@ local function setup()
     { "CopilotC-Nvim/CopilotChat.nvim", branch = "main" },
 
     -- CodeCompanion.nvim (AI Coding, Vim Style)
-    { "MunifTanjim/nui.nvim" },
-    {
-      "olimorris/codecompanion.nvim",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-treesitter/nvim-treesitter",
-        "MunifTanjim/nui.nvim",
-      },
-      config = function()
-        vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim")
-        require("plugins.codecompanion").setup()
-      end,
-    },
+    -- { "MunifTanjim/nui.nvim" },
+    -- {
+    --   "olimorris/codecompanion.nvim",
+    --   dependencies = {
+    --     "nvim-lua/plenary.nvim",
+    --     "nvim-treesitter/nvim-treesitter",
+    --     "MunifTanjim/nui.nvim",
+    --   },
+    --   config = function()
+    --     vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim")
+    --     require("plugins.codecompanion").setup()
+    --   end,
+    -- },
+
+    -- AI Chat (Anthropic Claude)
+    { "h10hUI/simple-ai-chat.nvim" },
   })
 end
 

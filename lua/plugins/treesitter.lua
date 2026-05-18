@@ -13,7 +13,7 @@ local function setup()
   }
 
   -- CodeCompanionのクエリを使えるようにruntimepathに追加
-  vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim")
+  -- vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim")
 
   -- treesitter-contextの設定
   require'treesitter-context'.setup {
