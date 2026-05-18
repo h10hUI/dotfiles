@@ -34,6 +34,7 @@ local function setup()
 
     -- Treesitter (Neovim 0.12+ core を使用、nvim-treesitter は不要)
     { "nvim-treesitter/nvim-treesitter-context" },
+    { "romus204/tree-sitter-manager.nvim" },
 
     -- Languages
     { "leafOfTree/vim-svelte-plugin" },
