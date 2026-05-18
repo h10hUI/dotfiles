@@ -32,8 +32,7 @@ local function setup()
     { "neoclide/coc.nvim", branch = "release", build = "npm install" },
     { "github/copilot.vim" },
 
-    -- Treesitter
-    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    -- Treesitter (Neovim 0.12+ core を使用、nvim-treesitter は不要)
     { "nvim-treesitter/nvim-treesitter-context" },
 
     -- Languages

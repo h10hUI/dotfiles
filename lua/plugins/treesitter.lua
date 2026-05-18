@@ -1,20 +1,8 @@
 -- ----------------------------------------
 --  Treesitter plugin settings
+--  Neovim 0.12+ core treesitter を使用 (nvim-treesitter は廃止)
 -- ----------------------------------------
 local function setup()
-  -- treesitterの設定
-  require'nvim-treesitter.configs'.setup {
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    }
-  }
-
-  -- CodeCompanionのクエリを使えるようにruntimepathに追加
-  -- vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/codecompanion.nvim")
-
   -- treesitter-contextの設定
   require'treesitter-context'.setup {
     enable = true,
@@ -35,7 +23,7 @@ local function setup()
     require'treesitter-context'.go_to_context(vim.v.count1)
   end, { silent = true })
 
-  -- fold設定をTreesitter初期化後に設定 (Neovim 0.10+ 組み込みfoldexprを使用)
+  -- fold設定 (Neovim 0.10+ 組み込みfoldexprを使用)
   vim.opt.foldmethod = "expr"
   vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
