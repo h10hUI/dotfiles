@@ -70,7 +70,14 @@ local function setup()
     -- },
 
     -- AI Chat (Anthropic Claude)
-    { "h10hUI/simple-ai-chat.nvim" },
+    -- ローカルに開発ディレクトリがあればそこを参照、無ければ GitHub から取得
+    (function()
+      local local_path = vim.fn.expand("~/workspace/github.com/h10hUI/simple-ai-chat.nvim")
+      if vim.fn.isdirectory(local_path) == 1 then
+        return { dir = local_path, name = "simple-ai-chat.nvim" }
+      end
+      return { "h10hUI/simple-ai-chat.nvim" }
+    end)(),
   })
 end
 
