@@ -10,6 +10,7 @@ local function setup()
       "json", "yaml", "toml",
       "bash", "html", "css",
       "svelte", "python", "go", "rust",
+      "astro",
     },
     auto_install = false,
   }

@@ -71,8 +71,7 @@ local function setup()
       ]],
       mapping = '<leader>cc',
       description = "バディにコミットメッセージの作成をお願いする",
-      selection = copilotChatSelect.gitdiff,
-      model = 'gpt-4.1',
+      selection = copilotChatSelect.gitdiff
     },
     CommitStaged = {
       prompt = [[

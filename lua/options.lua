@@ -24,7 +24,7 @@ local function setup()
   vim.opt.inccommand = "split"
   vim.opt.incsearch = true
   vim.opt.laststatus = 2
-  vim.opt.lazyredraw = true
+  vim.opt.lazyredraw = false
   vim.opt.matchtime = 1
   vim.opt.modeline = true
   vim.opt.modifiable = true
