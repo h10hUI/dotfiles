@@ -73,10 +73,13 @@ local function setup()
     -- ローカルに開発ディレクトリがあればそこを参照、無ければ GitHub から取得
     (function()
       local local_path = vim.fn.expand("~/workspace/github.com/h10hUI/simple-ai-chat.nvim")
-      if vim.fn.isdirectory(local_path) == 1 then
-        return { dir = local_path, name = "simple-ai-chat.nvim" }
+      local spec = (vim.fn.isdirectory(local_path) == 1)
+        and { dir = local_path, name = "simple-ai-chat.nvim" }
+        or { "h10hUI/simple-ai-chat.nvim" }
+      spec.config = function()
+        require("plugins.simple-ai-chat").setup()
       end
-      return { "h10hUI/simple-ai-chat.nvim" }
+      return spec
     end)(),
   })
 end
