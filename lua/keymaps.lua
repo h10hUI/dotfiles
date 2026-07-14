@@ -161,6 +161,11 @@ local function setup()
   vim.keymap.set('n', 'cV', 'f:lvt;', { desc = 'CSS値を選択' })
   vim.keymap.set('n', 'dV', 'f:ldt;', { desc = 'CSS値を削除' })
   vim.keymap.set('n', 'cC', 'f:lct;', { desc = 'CSS値を変更' })
+
+  -- wrapのトグル(diff時のズレを避けるため通常はnowrap)
+  vim.keymap.set("n", "<Leader>w", function()
+    vim.wo.wrap = not vim.wo.wrap
+  end, { desc = "Toggle wrap" })
 end
 
 return { setup = setup }

@@ -10,6 +10,7 @@ local function setup()
   vim.opt.clipboard = "unnamed"
   vim.opt.cmdheight = 1
   vim.opt.diffopt:append("vertical")
+  vim.opt.diffopt:append("linematch:60")
   vim.opt.display = "lastline"
   vim.opt.expandtab = true
   vim.opt.fileencodings = "utf-8,sjis,euc-jp"

@@ -2,14 +2,12 @@
 --  Autocmd settings
 -- ----------------------------------------
 local function setup()
-  -- diffでwrapする
-  vim.api.nvim_create_augroup("diffWrap", { clear = true })
-  vim.api.nvim_create_autocmd("FilterWritePre", {
-    group = "diffWrap",
-    pattern = "*",
+  -- diffモードに入ったらnowrap(scrollbindとのズレを防ぐ)
+  vim.api.nvim_create_autocmd("OptionSet", {
+    pattern = "diff",
     callback = function()
-      if vim.wo.diff then
-        vim.wo.wrap = true
+      if vim.v.option_new then
+        vim.wo.wrap = false
       end
     end
   })
