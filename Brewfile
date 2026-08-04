@@ -133,10 +133,6 @@ brew "mise"
 brew "mkcert"
 # Fast, highly customisable system info script
 brew "neofetch"
-# Clean C library for processing UTF-8 Unicode data
-brew "utf8proc", args: ["HEAD"]
-# Ambitious Vim-fork focused on extensibility and agility
-brew "neovim"
 # Network Kanji code conversion Filter (NKF)
 brew "nkf"
 # HTTP load generator, inspired by rakyll/hey with tui animation
@@ -197,6 +193,8 @@ brew "tree"
 brew "ultralist"
 # File synchronization tool
 brew "unison"
+# Clean C library for processing UTF-8 Unicode data
+brew "utf8proc", args: ["HEAD"]
 # Vi 'workalike' with many additional features
 brew "vim"
 # Internet file retriever
