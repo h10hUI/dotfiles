@@ -50,7 +50,7 @@ local function setup()
   vim.opt.title = true
   vim.opt.timeoutlen = 500
   vim.opt.updatetime = 250
-  vim.opt.virtualedit = "all"
+  vim.opt.virtualedit = "block"
   vim.opt.visualbell = true
   vim.opt.wildchar = 9 -- ASCII <Tab>
   vim.opt.wildmenu = true

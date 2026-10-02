@@ -68,3 +68,5 @@
   add-i = !git status --short --branch | awk '{print $2}' | tail -n +2 | xargs -p -I % git add %
   com = !git checkout master && sleep 2 && git checkout . && git pull
   co-fix= !git commit --fixup `git log --oneline --author h10hUI | fzf | cut -d ' ' -f 1`
+[init]
+	defaultBranch = main
