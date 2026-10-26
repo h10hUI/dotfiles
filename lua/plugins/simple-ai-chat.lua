@@ -5,7 +5,7 @@ local function setup()
   -- simple-ai-chat の設定（コメントアウト部分はデフォルト値）
   require'ai-chat'.setup{
     model = "deepseek-flash", -- 使用するモデルを指定（デフォルト: "claude-sonnet-4-6"）
-    -- max_tokens = 8096,      -- 1 回の応答の最大トークン数
+    max_tokens = 50000,      -- 1 回の応答の最大トークン数
     -- deno_script = nil,      -- Deno スクリプトのパス（nil ならプラグイン同梱の deno/main.ts）
 
     -- model 名が match（Lua パターン）にマッチしたら、その接続先を使う。
